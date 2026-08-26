@@ -21,14 +21,14 @@ export function BackToTop() {
       aria-label="Back to top"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       className={cn(
-        "fixed right-6 bottom-6 z-[999] flex size-10 items-center justify-center rounded-full border border-line bg-surface/90 text-fg-muted shadow-card backdrop-blur transition-all duration-200",
-        "hover:text-fg hover:shadow-card-hover",
+        "fixed right-[30px] bottom-[30px] z-[999] flex size-[50px] cursor-pointer items-center justify-center rounded-full bg-gradient-brand text-[1.1rem] text-white shadow-[0_4px_15px_rgb(99_102_241_/_0.4)] transition-all duration-300",
+        "hover:-translate-y-[3px] hover:shadow-[0_8px_25px_rgb(99_102_241_/_0.5)]",
         visible
           ? "visible translate-y-0 opacity-100"
-          : "invisible translate-y-2 opacity-0",
+          : "invisible translate-y-5 opacity-0",
       )}
     >
-      <FaChevronUp className="size-3.5" />
+      <FaChevronUp />
     </button>
   );
 }

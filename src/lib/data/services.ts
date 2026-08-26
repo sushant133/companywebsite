@@ -12,9 +12,9 @@ export type Service = {
   slug: string;
   title: string;
   icon: IconType;
-  /** Short version for the home page list. */
+  /** One-line version used on the home page preview grid. */
   teaser: string;
-  /** Full version for the services page. */
+  /** Full description used on the services page. */
   description: string;
   features: string[];
   tech: string[];
@@ -23,110 +23,110 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: "web-development",
-    title: "Web development",
+    title: "Web Development",
     icon: FaCode,
     teaser:
-      "Marketing sites, customer portals and internal tools, built to be maintained after we hand them over.",
+      "Custom websites and web applications built with modern frameworks and best practices.",
     description:
-      "Most of our work starts here. We build marketing sites, customer portals, storefronts and internal tools — usually React or Next.js on the front, Node or Python behind it. We write the deployment setup and the documentation alongside the code, so your team can take over without calling us first.",
+      "We build high-performance, responsive websites and web applications that deliver exceptional user experiences. Our web solutions are built using the latest technologies and frameworks to ensure speed, security, and scalability.",
     features: [
-      "Marketing and content sites",
-      "Customer and admin portals",
-      "Online stores and payments",
-      "REST and GraphQL APIs",
-      "Third-party integrations",
-      "Performance and SEO work",
+      "Custom Website Development",
+      "E-Commerce Solutions",
+      "Progressive Web Apps (PWA)",
+      "CMS Development",
+      "API Development & Integration",
+      "Web Portal Development",
     ],
-    tech: ["React", "Next.js", "Node.js", "Python", "PostgreSQL", "PHP"],
+    tech: ["React", "Angular", "Vue.js", "Node.js", "Python", "PHP"],
   },
   {
     slug: "mobile-app-development",
-    title: "Mobile apps",
+    title: "Mobile App Development",
     icon: FaMobileScreenButton,
     teaser:
-      "One codebase for iOS and Android, with the store submissions handled.",
+      "Native and cross-platform mobile applications for iOS and Android platforms.",
     description:
-      "We build cross-platform apps in Flutter or React Native, which keeps one codebase serving both stores and keeps your budget doing the same. Native Swift or Kotlin when a project genuinely needs it. We handle store listings, review submissions and the release process, not just the build.",
+      "We create native and cross-platform mobile applications that offer seamless performance and intuitive user interfaces. Our mobile solutions are designed to engage users and drive business results across iOS and Android platforms.",
     features: [
-      "Flutter and React Native apps",
-      "Native iOS and Android",
-      "Offline-first data sync",
-      "Push notifications",
-      "App Store and Play submission",
-      "Release and crash monitoring",
+      "iOS App Development",
+      "Android App Development",
+      "Cross-Platform Apps",
+      "App UI/UX Design",
+      "App Testing & QA",
+      "App Store Optimization",
     ],
-    tech: ["Flutter", "React Native", "Swift", "Kotlin", "Firebase"],
+    tech: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase"],
   },
   {
     slug: "ai-machine-learning",
-    title: "AI & machine learning",
+    title: "AI & Machine Learning",
     icon: FaBrain,
     teaser:
-      "Practical models for the jobs that eat your team's week — extraction, classification, forecasting.",
+      "Intelligent solutions powered by artificial intelligence and machine learning algorithms.",
     description:
-      "The useful version of this is narrower than the pitch usually suggests. We build document extraction, classification, forecasting and search over your own data, plus assistants built on existing language models. We will tell you when a problem does not need machine learning, which is often.",
+      "Harness the power of artificial intelligence and machine learning to automate processes, gain insights from data, and make smarter business decisions. Our AI solutions are tailored to solve your unique challenges.",
     features: [
-      "Document and form extraction",
-      "Classification and tagging",
-      "Demand and revenue forecasting",
-      "Search over internal documents",
-      "Assistants on existing models",
-      "Model evaluation and monitoring",
+      "Predictive Analytics",
+      "Natural Language Processing",
+      "Computer Vision",
+      "Chatbot Development",
+      "Recommendation Systems",
+      "Process Automation",
     ],
-    tech: ["Python", "PyTorch", "TensorFlow", "OpenAI", "scikit-learn"],
+    tech: ["TensorFlow", "PyTorch", "OpenAI", "Python", "Scikit-learn"],
   },
   {
     slug: "ui-ux-design",
-    title: "Product design",
+    title: "UI/UX Design",
     icon: FaPalette,
     teaser:
-      "Interface and flow design, delivered as components your developers can build from.",
+      "Beautiful, intuitive interfaces designed to enhance user engagement and satisfaction.",
     description:
-      "Wireframes, prototypes and finished interface design — delivered as a component library rather than a folder of flat screens, so the handoff to development does not lose half the detail. We run usability sessions on the prototype before anyone writes production code.",
+      "Create memorable digital experiences with our expert design team. We craft beautiful, intuitive interfaces that delight users and drive engagement, combining aesthetic appeal with functional excellence.",
     features: [
-      "Discovery and user interviews",
-      "Wireframes and prototypes",
-      "Interface and visual design",
-      "Component libraries",
-      "Design systems and tokens",
-      "Usability testing",
+      "User Research & Analysis",
+      "Wireframing & Prototyping",
+      "Visual Design",
+      "Interaction Design",
+      "Design Systems",
+      "Usability Testing",
     ],
-    tech: ["Figma", "Adobe XD", "Sketch", "Photoshop"],
+    tech: ["Figma", "Adobe XD", "Sketch", "InVision", "Photoshop"],
   },
   {
     slug: "digital-marketing",
-    title: "Digital marketing",
+    title: "Digital Marketing",
     icon: FaBullhorn,
     teaser:
-      "Search, paid and email — reported against revenue rather than impressions.",
+      "Strategic digital marketing campaigns that boost your brand visibility and drive results.",
     description:
-      "Search optimisation, paid campaigns, email and content, reported against the numbers that pay for them rather than against impressions. Works best alongside a site we have built, where we can instrument the funnel properly instead of guessing at it.",
+      "Boost your online presence and reach your target audience with our data-driven digital marketing strategies. We help you grow your brand, generate leads, and maximize your return on investment.",
     features: [
-      "Technical and content SEO",
-      "Google and Meta campaigns",
-      "Email and lifecycle marketing",
-      "Landing page testing",
-      "Analytics instrumentation",
-      "Monthly reporting",
+      "Search Engine Optimization (SEO)",
+      "Social Media Marketing",
+      "Pay-Per-Click (PPC) Advertising",
+      "Content Marketing",
+      "Email Marketing",
+      "Analytics & Reporting",
     ],
-    tech: ["Google Ads", "Meta Ads", "SEMrush", "Mailchimp", "GA4"],
+    tech: ["Google Ads", "Meta Ads", "SEMrush", "Mailchimp", "Analytics"],
   },
   {
     slug: "3d-4d-development",
-    title: "3D & immersive",
+    title: "3D/4D Development",
     icon: FaCube,
     teaser:
-      "Product configurators, virtual walkthroughs and AR previews that run in a browser.",
+      "Immersive 3D and 4D experiences that bring your ideas to life with stunning visuals.",
     description:
-      "Interactive 3D that runs in a browser without an app install — product configurators, property and venue walkthroughs, and AR previews for retail. Built on Three.js and WebGL, with Unity or Unreal where a project needs a full engine behind it.",
+      "Step into the future with our immersive 3D and 4D development services. From augmented reality experiences to interactive 3D visualizations, we create stunning digital environments that captivate and engage.",
     features: [
-      "3D product configurators",
-      "Property and venue walkthroughs",
-      "AR previews for retail",
-      "Modelling and animation",
-      "WebGL optimisation",
-      "VR experiences",
+      "3D Modeling & Animation",
+      "Augmented Reality (AR)",
+      "Virtual Reality (VR)",
+      "3D Product Visualization",
+      "Interactive 3D Web Experiences",
+      "4D Simulation",
     ],
-    tech: ["Three.js", "WebGL", "Unity", "Unreal Engine", "Blender"],
+    tech: ["Unity", "Unreal Engine", "Three.js", "Blender", "WebGL"],
   },
 ];

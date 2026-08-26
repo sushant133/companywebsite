@@ -1,71 +1,89 @@
 import type { Metadata } from "next";
+import { FaUser } from "react-icons/fa6";
 
-import { ClosingCta } from "@/components/site/closing-cta";
-import { Container, PageHeader, Section } from "@/components/site/layout-primitives";
+import {
+  Container,
+  PageHeader,
+  Section,
+  SectionHeader,
+} from "@/components/site/layout-primitives";
 import { Reveal } from "@/components/site/reveal";
-import { initials, teamGroups } from "@/lib/data/team";
+import { teamGroups } from "@/lib/data/team";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Team",
+  title: "Our Team",
   description:
-    "The nine people at MantraSphere Innovations — leadership, engineering, design and marketing.",
+    "Meet the leadership, development, design, and marketing team behind MantraSphere Innovations.",
 };
 
 export default function TeamPage() {
   return (
     <>
-      <PageHeader
-        crumb="Team"
-        title="Nine people, and you'll work with several of them"
-        intro="There is no delivery team behind the team you meet. Everyone listed here works on client projects."
-      />
+      <PageHeader title="Our" highlight="Team" crumb="Team" />
 
       <Section>
         <Container>
-          <div className="divide-y divide-line">
-            {teamGroups.map((group) => (
-              <Reveal key={group.title} className="py-12 first:pt-0 md:py-16">
-                <div className="grid gap-10 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-16">
-                  <h2 className="text-eyebrow uppercase text-fg-subtle lg:pt-1">
-                    {group.title}
-                  </h2>
+          <SectionHeader
+            tag="Meet the Team"
+            title={
+              <>
+                The Minds Behind{" "}
+                <span className="text-gradient-brand">MantraSphere</span>
+              </>
+            }
+            description="Our talented team of professionals brings together diverse expertise to deliver exceptional results."
+          />
 
-                  <ul className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
-                    {group.members.map((member) => (
-                      <li key={member.name} className="flex gap-4">
-                        {/* Monogram rather than a stock user glyph on a
-                            coloured gradient — it identifies the person
-                            instead of decorating the card. */}
-                        <span
-                          aria-hidden
-                          className="flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-soft font-display text-sm font-medium text-brand"
-                        >
-                          {initials(member.name)}
-                        </span>
-                        <div>
-                          <h3 className="text-h3">{member.name}</h3>
-                          <p className="mt-0.5 text-sm text-brand">
-                            {member.role}
-                          </p>
-                          <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-fg-muted">
-                            {member.bio}
-                          </p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+          {teamGroups.map((group, groupIndex) => (
+            <div key={group.title}>
+              <Reveal>
+                <h3
+                  className={cn(
+                    "mb-[30px] inline-block border-b-[3px] border-brand pb-2.5 text-[1.5rem] text-ink",
+                    groupIndex > 0 && "mt-[50px]",
+                  )}
+                >
+                  {group.title}
+                </h3>
               </Reveal>
-            ))}
-          </div>
+
+              <div
+                className={cn(
+                  "mb-5 grid grid-cols-1 gap-[30px] xs:grid-cols-2",
+                  group.layout === "leadership"
+                    ? "md:grid-cols-3"
+                    : "md:grid-cols-3 lg:grid-cols-4",
+                )}
+              >
+                {group.members.map((member, index) => (
+                  <Reveal
+                    key={member.name}
+                    delay={(index + 1) * 100}
+                    className="group ring-gradient relative rounded-[22px] card-surface p-[30px] text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-float"
+                  >
+                    <div className="mb-5">
+                      <div
+                        className={cn(
+                          "mx-auto flex size-[112px] items-center justify-center rounded-full bg-linear-135 text-[2.35rem] text-white shadow-[0_10px_28px_rgb(15_23_42_/_0.18),inset_0_2px_0_rgb(255_255_255_/_0.25)] ring-4 ring-white transition-transform duration-300 group-hover:scale-[1.04]",
+                          member.gradient,
+                        )}
+                      >
+                        <FaUser />
+                      </div>
+                    </div>
+                    <h4 className="mb-1 text-[1.15rem]">{member.name}</h4>
+                    <span className="mb-2.5 block text-[0.9rem] font-semibold text-brand">
+                      {member.role}
+                    </span>
+                    <p className="text-[0.9rem] text-slate-500">{member.bio}</p>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          ))}
         </Container>
       </Section>
-
-      <ClosingCta
-        title="Want to work with this lot?"
-        description="We take on a limited number of projects at a time, which is the trade-off for everyone here being on the actual work."
-        secondary={{ href: "/about", label: "How we work" }}
-      />
     </>
   );
 }

@@ -1,283 +1,297 @@
 import Link from "next/link";
-import { FaArrowRight } from "react-icons/fa6";
-
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { ClosingCta } from "@/components/site/closing-cta";
+  FaArrowRight,
+  FaCirclePlay,
+  FaPhone,
+  FaRocket,
+} from "react-icons/fa6";
+
+import { CtaSection } from "@/components/site/cta-section";
+import { FaqSection } from "@/components/site/faq-section";
+import { HeroParticles } from "@/components/site/hero-particles";
 import {
   Container,
   Section,
   SectionHeader,
 } from "@/components/site/layout-primitives";
+import { Preloader } from "@/components/site/preloader";
 import { Reveal } from "@/components/site/reveal";
+import { TypingText } from "@/components/site/typing-text";
 import { Button } from "@/components/ui/button";
-import { commitments, faqs, processSteps, techGroups } from "@/lib/data/home";
-import { products } from "@/lib/data/products";
+import { overviewItems, processSteps, techCategories } from "@/lib/data/home";
 import { services } from "@/lib/data/services";
-
-const featuredProducts = products.filter((p) => p.featured);
+import { contactInfo } from "@/lib/site";
 
 export default function HomePage() {
   return (
     <>
-      {/* ---- Hero ----
-          Left-aligned and text-first. The centred, particle-filled,
-          full-viewport version it replaces spent a whole screen saying
-          less than these four lines do. */}
-      <section className="border-b border-line bg-surface-alt pt-36 pb-20 md:pt-44 md:pb-28">
+      <Preloader />
+
+      {/* ---- Hero ---- */}
+      <section className="relative flex min-h-screen items-center overflow-hidden mesh-dark pt-20">
+        <div aria-hidden className="pointer-events-none absolute inset-0 pattern-grid" />
+        <HeroParticles />
+        {/* Warm spotlight behind the headline, so the type sits in light
+            rather than floating on a flat field. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute top-[-10%] left-1/2 h-[42rem] w-[70rem] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgb(99_102_241_/_0.22)_0%,transparent_65%)] blur-3xl"
+        />
+        {/* Fades the hero into the section beneath instead of cutting. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-slate-100"
+        />
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
-            <div>
-              <p className="eyebrow mb-6">Siraha, Nepal</p>
-              <h1 className="text-display">
-                We build software for businesses that need it to keep working.
+          <div className="relative z-[2] mx-auto max-w-[900px] text-center">
+            <Reveal
+              animation="fade-down"
+              className="mb-[30px] inline-flex items-center gap-2.5 rounded-full border border-white/12 bg-white/[0.06] px-5 py-2 text-[0.9rem] font-medium text-brand-light shadow-[inset_0_1px_0_rgb(255_255_255_/_0.1)] backdrop-blur-md"
+            >
+              <FaRocket className="text-brand-light" />
+              <span>Innovating the Future of Technology</span>
+            </Reveal>
+
+            <Reveal delay={100}>
+              <h1 className="mb-6 text-[1.8rem] leading-[1.15] font-extrabold text-white xs:text-[2.2rem] md:text-5xl lg:text-[4rem]">
+                Transforming Ideas Into{" "}
+                <TypingText className="text-gradient-brand" />
               </h1>
-              <p className="measure mt-7 text-lead text-fg-muted">
-                MantraSphere is a nine-person development studio. We take on web
-                and mobile projects end to end — discovery, design, build and
-                the handover that lets your own team take it from there.
+            </Reveal>
+
+            <Reveal delay={200}>
+              <p className="mx-auto mb-10 max-w-[680px] text-base leading-[1.75] text-slate-300/85 md:text-[1.175rem]">
+                MantraSphere Innovations delivers cutting-edge software
+                solutions that empower businesses to thrive in the digital era.
+                From AI-powered applications to immersive 3D experiences, we
+                turn your vision into extraordinary digital products.
               </p>
-              <div className="mt-9 flex flex-wrap items-center gap-3">
-                <Button asChild variant="brand" size="lg-cta">
-                  <Link href="/contact">Start a project</Link>
-                </Button>
-                <Button asChild variant="outline-brand" size="lg-cta">
-                  <Link href="/products">See what we&apos;ve shipped</Link>
-                </Button>
-              </div>
-            </div>
+            </Reveal>
 
-            {/* Standing in for the stat counters: three facts that are true
-                and checkable, rather than four animated numbers. */}
-            <ul className="grid grid-cols-2 gap-x-6 gap-y-8 border-t border-line pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-16">
-              <HeroFact
-                value="9"
-                term="Products in market"
-                detail="Across six sectors"
-              />
-              <HeroFact
-                value="6"
-                term="Services"
-                detail="Web, mobile, AI, design, 3D"
-              />
-              <HeroFact
-                value="UTC+5:45"
-                term="Time zone"
-                detail="Overlaps Asia, Gulf, Europe"
-              />
-              <HeroFact
-                value="Sun–Fri"
-                term="Working days"
-                detail="9:00 to 19:00 NPT"
-              />
-            </ul>
-          </div>
-        </Container>
-      </section>
-
-      {/* ---- Services ----
-          A numbered list with hairline rules. No icon chips, no hover lift,
-          no six identical cards. */}
-      <Section>
-        <Container>
-          <SectionHeader
-            eyebrow="What we do"
-            title="Six things, done properly"
-            description="Most clients come to us for one of these and stay for two. We would rather be good at a short list than available for everything."
-          />
-          <Reveal>
-            <ul className="border-t border-line">
-              {services.map((service, index) => (
-                <li key={service.slug}>
-                  <Link
-                    href="/services"
-                    className="group grid grid-cols-[auto_minmax(0,1fr)] items-baseline gap-x-5 border-b border-line py-7 transition-colors hover:bg-surface-alt md:grid-cols-[3rem_minmax(0,18rem)_minmax(0,1fr)_auto] md:gap-x-8 md:px-2"
-                  >
-                    <span className="font-display text-sm text-fg-subtle tabular-nums">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="text-h3 transition-colors group-hover:text-brand">
-                      {service.title}
-                    </h3>
-                    <p className="col-start-2 mt-2 text-sm text-fg-muted md:col-start-3 md:mt-0 md:text-[0.9375rem]">
-                      {service.teaser}
-                    </p>
-                    <FaArrowRight
-                      aria-hidden
-                      className="col-start-2 mt-3 size-3.5 text-fg-subtle transition-all group-hover:translate-x-1 group-hover:text-brand md:col-start-4 md:mt-0"
-                    />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </Container>
-      </Section>
-
-      {/* ---- Products ---- */}
-      <Section className="border-y border-line bg-surface-alt">
-        <Container>
-          <div className="mb-12 flex flex-wrap items-end justify-between gap-6 md:mb-16">
-            <SectionHeader
-              className="mb-0"
-              eyebrow="Our own products"
-              title="Nine platforms we built and licence"
-              description="Alongside client work we maintain a product line of our own. If one of these already covers most of what you need, deploying it beats commissioning something from scratch."
-            />
-            <Button asChild variant="outline-brand" size="md">
-              <Link href="/products">All nine products</Link>
-            </Button>
-          </div>
-
-          <Reveal className="grid gap-5 md:grid-cols-3">
-            {featuredProducts.map((product) => (
-              <article
-                key={product.title}
-                className="flex flex-col rounded-xl border border-line bg-surface p-7 shadow-card"
-              >
-                <product.icon className="size-5 text-brand" />
-                <p className="mt-5 text-eyebrow uppercase text-fg-subtle">
-                  {product.sector}
-                </p>
-                <h3 className="mt-2 text-h3">{product.title}</h3>
-                <p className="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-fg-muted">
-                  {product.description}
-                </p>
-              </article>
-            ))}
-          </Reveal>
-        </Container>
-      </Section>
-
-      {/* ---- How we work ---- */}
-      <Section>
-        <Container>
-          <SectionHeader
-            eyebrow="How we work"
-            title="Four stages, no surprises in the middle"
-          />
-          <Reveal className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-            {processSteps.map((step) => (
-              <div key={step.number} className="border-t-2 border-fg pt-5">
-                <p className="font-display text-sm text-fg-subtle tabular-nums">
-                  {step.number}
-                </p>
-                <h3 className="mt-3 text-h3">{step.title}</h3>
-                <p className="mt-3 text-[0.9375rem] leading-relaxed text-fg-muted">
-                  {step.description}
-                </p>
-              </div>
-            ))}
-          </Reveal>
-        </Container>
-      </Section>
-
-      {/* ---- Commitments ---- */}
-      <Section className="border-y border-line bg-surface-alt">
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-20">
-            <SectionHeader
-              className="mb-0"
-              eyebrow="Working with us"
-              title="What you can actually hold us to"
-            />
-            <Reveal className="grid gap-x-10 gap-y-9 sm:grid-cols-2">
-              {commitments.map((item) => (
-                <div key={item.title}>
-                  <item.icon className="size-[1.15rem] text-brand" />
-                  <h3 className="mt-4 text-h3">{item.title}</h3>
-                  <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-fg-muted">
-                    {item.description}
-                  </p>
-                </div>
-              ))}
+            <Reveal
+              delay={300}
+              className="mb-[60px] flex flex-wrap justify-center gap-4"
+            >
+              <Button asChild variant="brand" size="pill-lg">
+                <Link href="/services">
+                  Explore Services
+                  <FaArrowRight />
+                </Link>
+              </Button>
+              <Button asChild variant="outline-brand" size="pill-lg">
+                <Link href="/about">
+                  <FaCirclePlay />
+                  Learn More
+                </Link>
+              </Button>
             </Reveal>
           </div>
         </Container>
-      </Section>
 
-      {/* ---- Tech ----
-          One quiet band. This was six dark boxed cards on a full dark
-          section, which gave a list of tool names the visual weight of
-          the company's actual offer. */}
-      <Section size="tight">
+        <div className="absolute bottom-[30px] left-1/2 z-[2] -translate-x-1/2 text-center">
+          <Link
+            href="#overview"
+            className="flex flex-col items-center gap-2 text-[0.8rem] text-white/50"
+          >
+            <span className="flex h-10 w-[26px] justify-center rounded-[13px] border-2 border-white/30 pt-2">
+              <span className="h-2 w-1 rounded-[2px] bg-brand-light animate-scroll-down" />
+            </span>
+            <span>Scroll Down</span>
+          </Link>
+        </div>
+      </section>
+
+      {/* ---- Why Choose Us ---- */}
+      <Section id="overview" className="mesh-light">
         <Container>
-          <h2 className="text-eyebrow mb-8 uppercase text-fg-subtle">
-            Tools we work in
-          </h2>
-          <dl className="grid gap-x-10 gap-y-7 sm:grid-cols-2 lg:grid-cols-3">
-            {techGroups.map((group) => (
-              <div
-                key={group.label}
-                className="flex flex-col gap-2 border-t border-line pt-4 sm:flex-row sm:gap-6"
+          <SectionHeader
+            tag="Why Choose Us"
+            title={
+              <>
+                We Build Solutions That{" "}
+                <span className="text-gradient-brand">Drive Growth</span>
+              </>
+            }
+            description="At MantraSphere Innovations, we combine technical expertise with creative thinking to deliver solutions that make a real difference."
+          />
+          <div className="grid grid-cols-1 gap-[30px] md:grid-cols-2 lg:grid-cols-3">
+            {overviewItems.map((item, index) => (
+              <Reveal
+                key={item.title}
+                delay={(index + 1) * 100}
+                className="group ring-gradient relative rounded-[22px] card-surface px-[30px] py-11 text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-float"
               >
-                <dt className="w-28 shrink-0 text-sm font-medium">
-                  {group.label}
-                </dt>
-                <dd className="text-sm text-fg-muted">
-                  {group.items.join(" · ")}
-                </dd>
-              </div>
+                <div className="mx-auto mb-6 flex size-[68px] items-center justify-center rounded-[20px] bg-gradient-to-br from-brand/12 to-brand-sky/12 text-[1.7rem] text-brand shadow-[inset_0_1px_0_rgb(255_255_255_/_0.7)] transition-all duration-300 group-hover:bg-gradient-brand group-hover:from-transparent group-hover:to-transparent group-hover:text-white group-hover:shadow-glow">
+                  <item.icon />
+                </div>
+                <h3 className="mb-3 text-[1.2rem]">{item.title}</h3>
+                <p className="text-[0.9375rem] leading-relaxed text-slate-500">
+                  {item.description}
+                </p>
+              </Reveal>
             ))}
-          </dl>
-        </Container>
-      </Section>
-
-      {/* ---- FAQ ---- */}
-      <Section className="border-t border-line">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-20">
-            <SectionHeader
-              className="mb-0"
-              eyebrow="Questions"
-              title="The things people ask before signing"
-            />
-            <Accordion type="single" collapsible className="border-t border-line">
-              {faqs.map((faq, index) => (
-                <AccordionItem
-                  key={faq.question}
-                  value={`faq-${index}`}
-                  className="border-b border-line"
-                >
-                  <AccordionTrigger className="rounded-none py-5 text-left text-[1.0625rem] font-medium hover:no-underline **:data-[slot=accordion-trigger-icon]:text-fg-subtle">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="max-w-[58ch] pt-0 pb-6 text-[0.9375rem] leading-relaxed text-fg-muted">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
           </div>
         </Container>
       </Section>
 
-      <ClosingCta />
+      {/* ---- Services preview ---- */}
+      <Section>
+        <Container>
+          <SectionHeader
+            tag="Our Services"
+            title={
+              <>
+                What We <span className="text-gradient-brand">Offer</span>
+              </>
+            }
+            description="Comprehensive digital solutions tailored to meet your unique business requirements."
+          />
+          <div className="grid grid-cols-1 gap-[30px] md:grid-cols-2 lg:grid-cols-3">
+            {services.map((service, index) => (
+              <Reveal
+                key={service.slug}
+                delay={(index + 1) * 100}
+                className="group relative overflow-hidden rounded-[22px] card-surface px-[30px] py-10 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-float"
+              >
+                {/* Gradient rule that wipes in across the card top on hover. */}
+                <span className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 bg-gradient-brand transition-transform duration-400 group-hover:scale-x-100" />
+                {/* Corner wash that warms the card as the pointer arrives. */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -top-16 -right-16 size-40 rounded-full bg-brand/12 opacity-0 blur-2xl transition-opacity duration-400 group-hover:opacity-100"
+                />
+                <div className="mb-6 flex size-[58px] items-center justify-center rounded-[18px] bg-gradient-to-br from-brand/12 to-brand-sky/12 text-[1.45rem] text-brand shadow-[inset_0_1px_0_rgb(255_255_255_/_0.7)] transition-all duration-300 group-hover:bg-gradient-brand group-hover:from-transparent group-hover:to-transparent group-hover:text-white group-hover:shadow-glow">
+                  <service.icon />
+                </div>
+                <h3 className="mb-3 text-[1.2rem]">{service.title}</h3>
+                <p className="mb-6 text-[0.9375rem] leading-relaxed text-slate-500">
+                  {service.teaser}
+                </p>
+                <Link
+                  href="/services"
+                  className="inline-flex items-center gap-2 text-[0.95rem] font-semibold text-brand transition-all hover:gap-3"
+                >
+                  Learn More <FaArrowRight />
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal className="mt-10 text-center">
+            <Button asChild variant="brand" size="pill-lg">
+              <Link href="/services">
+                View All Services <FaArrowRight />
+              </Link>
+            </Button>
+          </Reveal>
+        </Container>
+      </Section>
+
+      {/* ---- Tech stack ---- */}
+      <Section id="technologies" className="relative overflow-hidden mesh-dark">
+        <div aria-hidden className="pointer-events-none absolute inset-0 pattern-grid" />
+        <Container className="relative z-[2]">
+          <SectionHeader
+            dark
+            tag="Tech Stack"
+            title={
+              <>
+                Technologies We{" "}
+                <span className="text-gradient-brand">Work With</span>
+              </>
+            }
+            description="We leverage the latest and most powerful technologies to build robust solutions."
+          />
+          <div className="grid grid-cols-1 gap-[30px] md:grid-cols-2 lg:grid-cols-3">
+            {techCategories.map((category, index) => (
+              <Reveal
+                key={category.title}
+                delay={(index + 1) * 100}
+                className="rounded-[22px] card-glass p-[30px] transition-all duration-300 hover:-translate-y-1 hover:border-brand/45 hover:bg-white/[0.06]"
+              >
+                <h3 className="mb-5 flex items-center gap-3 text-[1.05rem] text-white">
+                  <span className="flex size-9 items-center justify-center rounded-[11px] bg-brand/15 text-[0.95rem] text-brand-light">
+                    <category.icon />
+                  </span>
+                  {category.title}
+                </h3>
+                <div className="grid grid-cols-1 gap-2.5 xs:grid-cols-2">
+                  {category.items.map((item) => (
+                    <div
+                      key={item.label}
+                      className="flex items-center gap-2.5 rounded-[11px] border border-white/[0.06] bg-white/[0.04] px-3.5 py-2.5 text-[0.875rem] text-slate-300/90 transition-all duration-300 hover:border-brand/35 hover:bg-brand/15 hover:text-white"
+                    >
+                      <item.icon className="text-[1.2rem] text-brand-light" />
+                      <span>{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* ---- Process ---- */}
+      <Section className="mesh-light">
+        <Container>
+          <SectionHeader
+            tag="How We Work"
+            title={
+              <>
+                Our Development{" "}
+                <span className="text-gradient-brand">Process</span>
+              </>
+            }
+            description="A streamlined approach to turning your ideas into successful digital products."
+          />
+          <div className="relative mx-auto max-w-[800px]">
+            {/* Vertical rule aligned to the centre of the step markers. */}
+            <span
+              aria-hidden
+              className="absolute top-0 left-[30px] h-full w-[2px] bg-gradient-brand md:left-[50px]"
+            />
+            {processSteps.map((step, index) => (
+              <Reveal
+                key={step.number}
+                animation={index % 2 === 0 ? "fade-right" : "fade-left"}
+                delay={(index + 1) * 100}
+                className="relative mb-10 flex items-start gap-5 last:mb-0 md:gap-[30px]"
+              >
+                <div className="relative z-[2] flex size-[60px] min-w-[60px] items-center justify-center rounded-full bg-gradient-brand font-heading text-[1.1rem] font-extrabold text-white shadow-[0_8px_25px_rgb(99_102_241_/_0.35),inset_0_1px_0_rgb(255_255_255_/_0.25)] ring-4 ring-white md:size-[92px] md:min-w-[92px] md:text-[1.45rem]">
+                  {step.number}
+                </div>
+                <div className="group flex-1 rounded-[18px] card-surface p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-raised md:p-[30px]">
+                  <h3 className="mb-2.5 text-[1.2rem] text-ink">
+                    {step.title}
+                  </h3>
+                  <p className="text-[0.9375rem] leading-relaxed text-slate-500">
+                    {step.description}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      <FaqSection />
+
+      <CtaSection
+        title="Ready to Start Your Next Project?"
+        description="Let's collaborate to build something extraordinary. Get in touch with us today and let's turn your ideas into reality."
+        primary={{
+          href: "/contact",
+          label: "Contact Us",
+          icon: <FaArrowRight />,
+        }}
+        secondary={{
+          href: `tel:${contactInfo.phones[1].replace(/\s/g, "")}`,
+          label: "Call Us Now",
+          icon: <FaPhone />,
+          iconPosition: "leading",
+          external: true,
+        }}
+      />
     </>
   );
 }
-
-function HeroFact({
-  value,
-  term,
-  detail,
-}: {
-  value: string;
-  term: string;
-  detail: string;
-}) {
-  return (
-    <li>
-      <p className="font-display text-2xl tracking-tight md:text-[1.75rem]">
-        {value}
-      </p>
-      <p className="mt-1.5 text-sm font-medium">{term}</p>
-      <p className="mt-0.5 text-[0.8125rem] text-fg-subtle">{detail}</p>
-    </li>
-  );
-}
-

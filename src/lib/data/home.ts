@@ -1,130 +1,215 @@
 import type { IconType } from "react-icons";
 import {
-  FaArrowsRotate,
-  FaComments,
-  FaLifeRing,
+  FaAndroid,
+  FaAngular,
+  FaAws,
+  FaBrain,
+  FaChartLine,
+  FaClock,
+  FaCloud,
+  FaCss3Alt,
+  FaDatabase,
+  FaDocker,
+  FaDollarSign,
+  FaFeather,
+  FaFire,
+  FaGem,
+  FaGoogle,
+  FaHeadset,
+  FaHtml5,
+  FaJava,
+  FaJs,
+  FaLaptopCode,
+  FaLightbulb,
+  FaMicrosoft,
+  FaMobileScreenButton,
+  FaNodeJs,
+  FaPhp,
+  FaPython,
+  FaReact,
+  FaRobot,
+  FaServer,
   FaShieldHalved,
+  FaSwift,
+  FaUpRightAndDownLeftFromCenter,
+  FaVuejs,
 } from "react-icons/fa6";
 
-/**
- * Four ways of working, each one grounded in something the previous site
- * already stated (agile sprints, OWASP reviews, post-launch support,
- * remote collaboration). The six cards these replace — "Innovation First",
- * "Quality Assured" and so on — were claims every agency makes and none
- * can be checked.
- */
-export const commitments: {
-  title: string;
-  description: string;
-  icon: IconType;
-}[] = [
+export type OverviewItem = { title: string; description: string; icon: IconType };
+
+export const overviewItems: OverviewItem[] = [
   {
-    title: "You talk to the people building it",
+    title: "Innovation First",
     description:
-      "We are a small team, so the developer writing your code is in the same conversation you are. Slack, Zoom, Jira — whichever you already use.",
-    icon: FaComments,
+      "We stay ahead of technology trends to deliver forward-thinking solutions that keep your business competitive.",
+    icon: FaLightbulb,
   },
   {
-    title: "Two-week sprints, working software",
+    title: "Quality Assured",
     description:
-      "Daily standups internally, a demo at the end of every sprint. You see the thing running each fortnight rather than reading a status report about it.",
-    icon: FaArrowsRotate,
-  },
-  {
-    title: "Security reviewed, not assumed",
-    description:
-      "OWASP guidelines through the build, encrypted communications, and a security review before launch rather than after an incident.",
+      "Every project undergoes rigorous testing and quality checks to ensure flawless performance and reliability.",
     icon: FaShieldHalved,
   },
   {
-    title: "Support continues after launch",
+    title: "On-Time Delivery",
     description:
-      "Bug fixes, security updates, performance work and new features. Take a maintenance package or take the project in-house — both are fine.",
-    icon: FaLifeRing,
+      "We respect deadlines and deliver projects on schedule without compromising on quality or features.",
+    icon: FaClock,
+  },
+  {
+    title: "24/7 Support",
+    description:
+      "Our dedicated support team is available around the clock to assist you with any issues or questions.",
+    icon: FaHeadset,
+  },
+  {
+    title: "Cost Effective",
+    description:
+      "Premium quality solutions at competitive prices, ensuring maximum return on your technology investment.",
+    icon: FaDollarSign,
+  },
+  {
+    title: "Scalable Solutions",
+    description:
+      "Our architectures are built to grow with your business, handling increased loads seamlessly.",
+    icon: FaUpRightAndDownLeftFromCenter,
   },
 ];
 
-/** Grouped for the quiet tech band, replacing six separate boxed cards. */
-export const techGroups: { label: string; items: string[] }[] = [
+export type TechCategory = {
+  title: string;
+  icon: IconType;
+  items: { label: string; icon: IconType }[];
+};
+
+export const techCategories: TechCategory[] = [
   {
-    label: "Frontend",
-    items: ["React", "Angular", "Vue", "TypeScript", "HTML", "CSS"],
+    title: "Frontend",
+    icon: FaLaptopCode,
+    items: [
+      { label: "React", icon: FaReact },
+      { label: "Angular", icon: FaAngular },
+      { label: "Vue.js", icon: FaVuejs },
+      { label: "HTML5", icon: FaHtml5 },
+      { label: "CSS3", icon: FaCss3Alt },
+      { label: "JavaScript", icon: FaJs },
+    ],
   },
   {
-    label: "Backend",
-    items: ["Node.js", "Python", "PHP", "Java", "Ruby", ".NET"],
+    title: "Backend",
+    icon: FaServer,
+    items: [
+      { label: "Node.js", icon: FaNodeJs },
+      { label: "Python", icon: FaPython },
+      { label: "Java", icon: FaJava },
+      { label: "PHP", icon: FaPhp },
+      { label: "Ruby", icon: FaGem },
+      { label: ".NET", icon: FaDatabase },
+    ],
   },
-  { label: "Mobile", items: ["Flutter", "React Native", "Swift", "Kotlin"] },
   {
-    label: "Cloud",
-    items: ["AWS", "Google Cloud", "Azure", "Docker"],
+    title: "Mobile",
+    icon: FaMobileScreenButton,
+    items: [
+      { label: "React Native", icon: FaReact },
+      { label: "Flutter", icon: FaFeather },
+      { label: "Swift", icon: FaSwift },
+      { label: "Kotlin", icon: FaAndroid },
+    ],
   },
   {
-    label: "Data",
-    items: ["PostgreSQL", "MySQL", "MongoDB", "Firebase"],
+    title: "Cloud & DevOps",
+    icon: FaCloud,
+    items: [
+      { label: "AWS", icon: FaAws },
+      { label: "Google Cloud", icon: FaGoogle },
+      { label: "Azure", icon: FaMicrosoft },
+      { label: "Docker", icon: FaDocker },
+    ],
   },
   {
-    label: "AI & 3D",
-    items: ["TensorFlow", "PyTorch", "OpenAI", "Three.js", "Unity"],
+    title: "Databases",
+    icon: FaDatabase,
+    items: [
+      { label: "MongoDB", icon: FaDatabase },
+      { label: "PostgreSQL", icon: FaDatabase },
+      { label: "MySQL", icon: FaDatabase },
+      { label: "Firebase", icon: FaFire },
+    ],
+  },
+  {
+    title: "AI/ML",
+    icon: FaBrain,
+    items: [
+      { label: "TensorFlow", icon: FaRobot },
+      { label: "PyTorch", icon: FaFire },
+      { label: "OpenAI", icon: FaBrain },
+      { label: "Scikit-learn", icon: FaChartLine },
+    ],
   },
 ];
 
 export const processSteps = [
   {
     number: "01",
-    title: "Discovery and planning",
+    title: "Discovery & Planning",
     description:
-      "We work through the requirements, the systems it has to talk to, and what can wait for a second version. You leave with a written scope, a roadmap and a proposal.",
+      "We analyze your requirements, research your market, and create a comprehensive project roadmap with clear milestones.",
   },
   {
     number: "02",
-    title: "Design and prototype",
+    title: "Design & Prototype",
     description:
-      "Wireframes, then a clickable prototype. Changes are cheap here and expensive later, so the interface gets settled before anyone writes production code.",
+      "Our designers create wireframes and interactive prototypes, ensuring the perfect user experience before development begins.",
   },
   {
     number: "03",
-    title: "Development and testing",
+    title: "Development & Testing",
     description:
-      "Two-week sprints with continuous testing, against a staging environment you can open at any time. A demo closes every sprint.",
+      "Our expert developers build your solution using agile methodologies, with continuous testing to ensure quality.",
   },
   {
     number: "04",
-    title: "Launch and support",
+    title: "Launch & Support",
     description:
-      "We deploy, hand over the documentation, and stay on for maintenance, updates and monitoring for as long as you want us there.",
+      "We deploy your solution and provide ongoing maintenance, updates, and 24/7 support to ensure smooth operation.",
   },
 ];
 
 export const faqs = [
   {
-    question: "How long will a project take?",
+    question: "What services does MantraSphere Innovations offer?",
     answer:
-      "A straightforward website is usually two to four weeks. Web applications and mobile apps run two to six months depending on scope. You get a sprint-by-sprint schedule at the end of discovery, and progress is visible on staging throughout rather than only at the end.",
+      "We offer a comprehensive range of digital services including Web Development, Mobile App Development, AI & Machine Learning solutions, UI/UX Design, Digital Marketing, and 3D/4D Development. Each service is tailored to meet your specific business needs.",
   },
   {
-    question: "How does pricing work?",
+    question: "How long does it take to complete a project?",
     answer:
-      "Three arrangements, depending on what suits the work: a fixed price for a defined scope, an hourly rate for open-ended work, or a dedicated team retained by the month. Either way you get an itemised proposal after discovery, and the number in it is the number you pay.",
+      "Project timelines vary based on complexity and scope. A simple website can be completed in 2-4 weeks, while complex web applications or mobile apps may take 2-6 months. We provide detailed timelines during the planning phase and keep you updated throughout.",
   },
   {
-    question: "What happens after launch?",
+    question: "Do you provide post-launch support and maintenance?",
     answer:
-      "Every project includes post-launch support — bug fixes, security updates, performance work and feature additions. From there you can keep a maintenance package running or take the project in-house. The handover documentation is written so that the second option is genuinely available to you.",
+      "Yes! We provide comprehensive post-launch support including bug fixes, security updates, performance optimization, and feature enhancements. We offer flexible maintenance packages tailored to your needs with 24/7 support availability.",
   },
   {
-    question: "Do you work with clients remotely?",
+    question: "What technologies do you use for development?",
     answer:
-      "Most of our work is remote. We are on Nepal Time (UTC+5:45), which overlaps the working day across South Asia, the Gulf and most of Europe. For clients further west we keep calls in our early morning and run everything else asynchronously.",
+      "We work with a wide range of modern technologies including React, Angular, Vue.js, Node.js, Python, Flutter, React Native, TensorFlow, AWS, Google Cloud, and many more. We select the best technology stack based on your project requirements.",
   },
   {
-    question: "Which technologies do you use?",
+    question: "How do you handle project pricing?",
     answer:
-      "React, Angular and Vue on the front end; Node.js, Python, PHP and Java behind it; Flutter and React Native for mobile; AWS, Google Cloud and Azure for infrastructure. We pick per project rather than fitting every problem to one stack.",
+      "We offer flexible pricing models including fixed-price projects, hourly rates, and dedicated team arrangements. After understanding your requirements, we provide a detailed proposal with transparent pricing. We ensure no hidden costs and great value for your investment.",
   },
   {
-    question: "Will you sign an NDA?",
+    question: "Can you work with clients remotely?",
     answer:
-      "Yes, before any detailed discussion of your project. Send us yours or use ours.",
+      "Absolutely! We have extensive experience working with clients globally. We use modern collaboration tools like Slack, Zoom, Jira, and Trello to ensure seamless communication and project management regardless of your location.",
+  },
+  {
+    question: "Do you sign NDAs and ensure data security?",
+    answer:
+      "Yes, we take data security very seriously. We are happy to sign NDAs before project discussions begin. We follow industry-standard security practices, use encrypted communications, and ensure all client data is protected and confidential.",
   },
 ];

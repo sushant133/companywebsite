@@ -7,16 +7,19 @@ import { cn } from "@/lib/utils";
 type RevealAnimation = "fade-up" | "fade-down" | "fade-left" | "fade-right";
 
 const hiddenByAnimation: Record<RevealAnimation, string> = {
-  "fade-up": "translate-y-3",
-  "fade-down": "-translate-y-3",
-  "fade-left": "translate-x-3",
-  "fade-right": "-translate-x-3",
+  "fade-up": "translate-y-[30px]",
+  "fade-down": "-translate-y-[30px]",
+  "fade-left": "translate-x-[30px]",
+  "fade-right": "-translate-x-[30px]",
 };
 
 /**
- * Scroll reveal, used sparingly — on section groups rather than on every
- * individual card. A 12px drift over 500ms registers as the page settling;
- * the 30px slide it replaced registered as an effect.
+ * Scroll-reveal wrapper replacing the hand-rolled `data-aos` IntersectionObserver
+ * from js/script.js. Same thresholds (0.1 / -50px bottom margin), same 600ms
+ * ease transition, and the same one-shot behaviour — once revealed, it stays.
+ *
+ * The stagger that the original produced with `setTimeout` is expressed here as
+ * `transition-delay`, which reads the same on screen without the timer.
  */
 export function Reveal({
   animation = "fade-up",
@@ -54,7 +57,7 @@ export function Reveal({
       ref={ref}
       style={{ transitionDelay: delay ? `${delay}ms` : undefined }}
       className={cn(
-        "transition-[opacity,transform] duration-500 ease-out motion-reduce:transition-none",
+        "transition-[opacity,transform] duration-600 ease-out motion-reduce:transition-none",
         visible
           ? "translate-x-0 translate-y-0 opacity-100"
           : cn("opacity-0", hiddenByAnimation[animation]),
