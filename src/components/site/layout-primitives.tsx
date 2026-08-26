@@ -4,7 +4,7 @@ import { FaChevronRight } from "react-icons/fa6";
 import { Reveal } from "@/components/site/reveal";
 import { cn } from "@/lib/utils";
 
-/** Legacy `.container`: 1200px max width, 20px gutters. */
+/** 1140px measure with gutters that hold up on tablet. */
 export function Container({
   className,
   children,
@@ -13,66 +13,88 @@ export function Container({
   children: React.ReactNode;
 }) {
   return (
-    <div className={cn("mx-auto w-full max-w-[1200px] px-5", className)}>
+    <div className={cn("mx-auto w-full max-w-[1140px] px-5 sm:px-8", className)}>
       {children}
     </div>
   );
 }
 
-/** Legacy `.section`: 100px vertical padding, 70px below 768px. */
+/**
+ * One vertical rhythm for the whole site. Previously every section carried
+ * its own padding, which is why the page never settled into a cadence.
+ */
 export function Section({
+  size = "default",
   className,
   children,
   ...props
-}: React.ComponentProps<"section">) {
+}: React.ComponentProps<"section"> & { size?: "default" | "tight" }) {
   return (
-    <section className={cn("py-[70px] md:py-[100px]", className)} {...props}>
+    <section
+      className={cn(
+        size === "tight" ? "py-14 md:py-20" : "py-16 md:py-24",
+        className,
+      )}
+      {...props}
+    >
       {children}
     </section>
   );
 }
 
+/**
+ * Section heading.
+ *
+ * The label is a plain uppercase line rather than a filled pill, and the
+ * emphasis word is solid brand colour rather than gradient — gradient now
+ * belongs to the wordmark, the hero and primary buttons only.
+ */
 export function SectionHeader({
-  tag,
+  label,
   title,
   description,
+  align = "center",
   dark = false,
+  className,
 }: {
-  tag: string;
+  label: string;
   title: React.ReactNode;
   description?: string;
-  /** Inverts the copy colours for sections sitting on the dark background. */
+  align?: "center" | "start";
   dark?: boolean;
+  className?: string;
 }) {
   return (
-    <Reveal className="mx-auto mb-15 max-w-[700px] text-center">
-      <span
+    <Reveal
+      className={cn(
+        "mb-12 md:mb-14",
+        align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl",
+        className,
+      )}
+    >
+      <p
         className={cn(
-          "mb-5 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[0.8125rem] font-semibold tracking-[0.06em] uppercase",
-          dark
-            ? "border border-white/12 bg-white/[0.06] text-brand-light shadow-[inset_0_1px_0_rgb(255_255_255_/_0.08)] backdrop-blur-md"
-            : "border border-brand/15 bg-brand/[0.07] text-brand",
+          "section-label mb-4",
+          align === "center" && "justify-center",
+          dark ? "text-brand-light" : "text-brand-strong",
         )}
       >
-        <span
-          aria-hidden
-          className="size-1.5 rounded-full bg-current opacity-70"
-        />
-        {tag}
-      </span>
+        <span aria-hidden className="h-px w-6 bg-current opacity-50" />
+        {label}
+      </p>
       <h2
-        className={cn(
-          "mb-4 text-[2rem] md:text-[2.6rem]",
-          dark ? "text-white" : "text-ink",
-        )}
+        className={cn("text-section", dark ? "text-white" : "text-ink")}
       >
         {title}
       </h2>
       {description ? (
         <p
           className={cn(
-            "text-[1.075rem] leading-[1.75]",
-            dark ? "text-slate-300/80" : "text-slate-500",
+            "mt-4 text-lead",
+            align === "center" && "mx-auto",
+            "measure",
+            align === "center" && "max-w-[52ch]",
+            dark ? "text-slate-400" : "text-slate-600",
           )}
         >
           {description}
@@ -82,38 +104,48 @@ export function SectionHeader({
   );
 }
 
-/** Dark banner with breadcrumb used by the services/products/team/contact pages. */
+/**
+ * Interior page masthead. Short, dark and quiet — it orients you and hands
+ * over to the content rather than acting as a second hero.
+ */
 export function PageHeader({
   title,
   highlight,
   crumb,
+  intro,
 }: {
   title: string;
-  highlight: string;
+  highlight?: string;
   crumb: string;
+  intro?: string;
 }) {
   return (
-    <section className="relative overflow-hidden mesh-dark pt-[130px] pb-[60px] text-center md:pt-40 md:pb-20">
-      <div aria-hidden className="pointer-events-none absolute inset-0 pattern-grid" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-[-30%] left-1/2 h-[26rem] w-[50rem] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgb(99_102_241_/_0.2)_0%,transparent_65%)] blur-3xl"
-      />
+    <section className="relative overflow-hidden bg-ink pt-28 pb-14 md:pt-36 md:pb-20">
+      <div aria-hidden className="pointer-events-none absolute inset-0 hero-grid" />
       <Container>
-        <div className="relative z-[2]">
-          <h1 className="mb-4 text-[2.2rem] text-white md:text-5xl">
-            {title} <span className="text-gradient-brand">{highlight}</span>
-          </h1>
+        <div className="relative">
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center justify-center gap-3 text-[0.95rem] text-slate-400"
+            className="mb-5 flex items-center gap-2 text-sm text-slate-400"
           >
-            <Link href="/" className="text-brand-light hover:text-white">
+            <Link href="/" className="transition-colors hover:text-white">
               Home
             </Link>
-            <FaChevronRight className="size-2.5" />
-            <span>{crumb}</span>
+            <FaChevronRight className="size-2.5 text-slate-600" />
+            <span className="text-slate-300">{crumb}</span>
           </nav>
+          <h1 className="text-page-title max-w-3xl text-white">
+            {title}
+            {highlight ? (
+              <>
+                {" "}
+                <span className="text-brand-light">{highlight}</span>
+              </>
+            ) : null}
+          </h1>
+          {intro ? (
+            <p className="measure mt-5 text-lead text-slate-400">{intro}</p>
+          ) : null}
         </div>
       </Container>
     </section>

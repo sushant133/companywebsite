@@ -19,18 +19,16 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
-        // ---- MantraSphere pill buttons (legacy .btn-* classes) ----
-        // The resting shadow plus the inset top highlight are what make a
-        // filled button read as a physical control rather than a coloured
-        // rectangle. The hover lift then has somewhere to lift from.
+        // ---- MantraSphere ----
+        // Gradient is reserved for the primary action, so "primary" is
+        // legible at a glance. Everything else is flat, and nothing lifts.
         brand:
-          "bg-gradient-brand text-white shadow-[0_4px_14px_rgb(99_102_241_/_0.35),inset_0_1px_0_rgb(255_255_255_/_0.22)] hover:-translate-y-0.5 hover:shadow-glow",
+          "bg-gradient-brand text-white shadow-[0_1px_2px_rgb(15_23_42_/_0.12)] hover:brightness-[1.08] active:brightness-95",
         "outline-brand":
-          "border border-brand/25 bg-white text-brand shadow-soft hover:-translate-y-0.5 hover:border-brand/45 hover:bg-brand/[0.04] hover:shadow-raised",
-        white:
-          "bg-white text-brand shadow-[0_4px_16px_rgb(2_6_23_/_0.16),inset_0_1px_0_rgb(255_255_255_/_0.9)] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgb(2_6_23_/_0.22)]",
+          "border border-slate-300 bg-white text-slate-700 hover:border-brand/45 hover:bg-brand-soft hover:text-brand-dark",
+        white: "bg-white text-brand-dark hover:bg-slate-100",
         "outline-white":
-          "border border-white/30 bg-white/5 text-white backdrop-blur-sm hover:-translate-y-0.5 hover:border-white/55 hover:bg-white/12",
+          "border border-white/30 bg-transparent text-white hover:border-white/60 hover:bg-white/10",
       },
       size: {
         default:
@@ -44,10 +42,12 @@ const buttonVariants = cva(
         "icon-sm":
           "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
         "icon-lg": "size-9",
-        // ---- MantraSphere pill sizes (legacy .btn / .btn-lg) ----
-        pill: "h-auto gap-2 rounded-full px-7 py-3 text-[0.95rem] font-semibold",
-        "pill-lg":
-          "h-auto gap-2 rounded-full px-9 py-4 text-[1.05rem] font-semibold",
+        // ---- MantraSphere ----
+        // Fixed heights so buttons align with each other and with inputs.
+        // The name is kept for call sites; the shape is no longer a pill,
+        // which was reading as decorative rather than considered.
+        pill: "h-10 gap-2 rounded-lg px-4 text-[0.875rem] font-semibold",
+        "pill-lg": "h-12 gap-2 rounded-lg px-6 text-[0.9375rem] font-semibold",
       },
     },
     defaultVariants: {

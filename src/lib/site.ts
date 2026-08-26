@@ -12,7 +12,7 @@ export const siteConfig = {
   shortName: "MantraSphere",
   url: "https://mantrasphere.com.np",
   description:
-    "MantraSphere Innovations is a software development company delivering cutting-edge digital solutions to businesses worldwide.",
+    "A software development studio in Siraha, Nepal. We build web platforms, mobile apps and AI tools for businesses, and licence nine of our own products.",
   googleSiteVerification: "mhTGwyeOoJAmWn6CFGKn2Huf8rTc61LX9UGi0c_xFWA",
 } as const;
 

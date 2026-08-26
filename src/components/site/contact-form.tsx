@@ -31,7 +31,7 @@ const serviceOptions = [
 ];
 
 const fieldClass =
-  "w-full rounded-[13px] border border-slate-200 bg-slate-50/60 px-[18px] py-3.5 text-[0.95rem] text-ink shadow-[inset_0_1px_2px_rgb(15_23_42_/_0.04)] transition-all hover:border-slate-300 focus-visible:border-brand focus-visible:bg-white focus-visible:ring-[3px] focus-visible:ring-brand/12";
+  "h-11 w-full rounded-lg border border-slate-300 bg-white px-3.5 text-body text-ink transition-colors placeholder:text-slate-400 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20 aria-invalid:border-destructive";
 
 export function ContactForm() {
   const [state, formAction, pending] = useActionState(
@@ -41,13 +41,13 @@ export function ContactForm() {
 
   if (state.status === "success") {
     return (
-      <div className="rounded-[24px] card-surface p-6 shadow-raised md:p-10">
-        <div className="px-10 py-15 text-center">
-          <FaCircleCheck className="mx-auto mb-5 text-[4rem] text-emerald-500" />
-          <h3 className="mb-2.5 text-[1.5rem] text-ink">
+      <div className="rounded-xl border border-slate-200 bg-white p-6 md:p-8">
+        <div className="text-center">
+          <FaCircleCheck className="mx-auto mb-4 size-10 text-emerald-600" />
+          <h3 className="mb-2 text-card-title">
             Message Sent Successfully!
           </h3>
-          <p className="text-slate-500">
+          <p className="text-body text-slate-600">
             Thank you for reaching out. We&apos;ll get back to you within 24
             hours.
           </p>
@@ -57,9 +57,9 @@ export function ContactForm() {
   }
 
   return (
-    <div className="rounded-[24px] card-surface p-6 shadow-raised md:p-10">
+    <div className="rounded-xl border border-slate-200 bg-white p-6 md:p-8">
       <form action={formAction} noValidate>
-        <h3 className="mb-[30px] text-[1.5rem] text-ink">Send Us a Message</h3>
+        <h3 className="mb-6 text-card-title">Send Us a Message</h3>
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <Field
@@ -99,7 +99,7 @@ export function ContactForm() {
         <div className="mb-5">
           <Label
             htmlFor="service"
-            className="mb-2 block text-[0.9rem] font-semibold text-ink-3"
+            className="mb-2 block text-sm font-medium text-slate-700"
           >
             Service Interested In
           </Label>
@@ -108,7 +108,7 @@ export function ContactForm() {
           <Select name="service">
             <SelectTrigger
               id="service"
-              className={cn(fieldClass, "h-auto justify-between")}
+              className={cn(fieldClass, "justify-between")}
             >
               <SelectValue placeholder="Select a Service" />
             </SelectTrigger>
@@ -125,7 +125,7 @@ export function ContactForm() {
         <div className="mb-5">
           <Label
             htmlFor="message"
-            className="mb-2 block text-[0.9rem] font-semibold text-ink-3"
+            className="mb-2 block text-sm font-medium text-slate-700"
           >
             Your Message *
           </Label>
@@ -136,7 +136,7 @@ export function ContactForm() {
             required
             placeholder="Tell us about your project..."
             aria-invalid={Boolean(state.errors?.message)}
-            className={cn(fieldClass, "min-h-[120px] resize-y")}
+            className={cn(fieldClass, "h-auto min-h-32 resize-y py-3")}
           />
           <FieldError message={state.errors?.message} />
         </div>
@@ -189,7 +189,7 @@ function Field({
     <div className="mb-5">
       <Label
         htmlFor={id}
-        className="mb-2 block text-[0.9rem] font-semibold text-ink-3"
+        className="mb-2 block text-sm font-medium text-slate-700"
       >
         {label}
       </Label>

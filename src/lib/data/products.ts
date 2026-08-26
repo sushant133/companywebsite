@@ -43,7 +43,7 @@ export const products: Product[] = [
     badge: "Featured",
     featured: true,
     description:
-      "An all-in-one restaurant management solution that handles table reservations, online ordering, kitchen management, inventory tracking, billing, and customer loyalty programs seamlessly.",
+      "Reservations, online ordering, a kitchen display, stock tracking and billing in one system, so the floor and the kitchen work from the same information.",
     features: [
       "Table Reservation System",
       "Online Ordering & Delivery",

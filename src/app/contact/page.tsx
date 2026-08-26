@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { FaClock, FaEnvelope, FaLocationDot, FaPhone } from "react-icons/fa6";
 
 import { ContactForm } from "@/components/site/contact-form";
 import {
@@ -7,133 +6,129 @@ import {
   PageHeader,
   Section,
 } from "@/components/site/layout-primitives";
-import { Reveal } from "@/components/site/reveal";
 import { contactInfo, socialLinks } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
+  title: "Contact",
   description:
-    "Get in touch with MantraSphere Innovations. Call, email, or send us a message about your project.",
+    "Get in touch with MantraSphere Innovations in Siraha, Nepal — by email, phone, WhatsApp or the project enquiry form.",
 };
 
 export default function ContactPage() {
   return (
     <>
-      <PageHeader title="Contact" highlight="Us" crumb="Contact" />
+      <PageHeader
+        crumb="Contact"
+        title="Tell us what you're"
+        highlight="planning to build"
+        intro="Send the outline and we'll come back within one working day with questions, a rough scope, and a straight answer on whether we're the right team for it."
+      />
 
       <Section>
         <Container>
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-[60px]">
-            <Reveal animation="fade-right">
-              <h2 className="mb-4 text-[2.2rem]">
-                Get In <span className="text-gradient-brand">Touch</span>
-              </h2>
-              <p className="mb-10 leading-[1.8] text-slate-500">
-                Have a project in mind or want to learn more about our services?
-                We&apos;d love to hear from you. Reach out and let&apos;s start a
-                conversation.
-              </p>
+          <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+            {/* Contact details come first. Plenty of people want the email
+                address rather than a nine-field form, and burying it below
+                one is a needless obstacle. */}
+            <div>
+              <dl className="divide-y divide-slate-200 border-y border-slate-200">
+                <Row label="Email">
+                  <a
+                    href={`mailto:${contactInfo.email}`}
+                    className="font-medium text-ink underline decoration-slate-300 underline-offset-4 transition-colors hover:decoration-brand"
+                  >
+                    {contactInfo.email}
+                  </a>
+                </Row>
 
-              <div className="mb-10 flex flex-col gap-7">
-                <InfoItem icon={<FaLocationDot />} title="Our Office">
-                  <p className="whitespace-pre-line">
-                    {contactInfo.addressShort}
-                  </p>
-                </InfoItem>
-
-                <InfoItem icon={<FaPhone />} title="Phone">
+                <Row label="Phone">
                   {contactInfo.phones.map((phone) => (
-                    <p key={phone}>
-                      <a
-                        href={`tel:${phone.replace(/\s/g, "")}`}
-                        className="hover:text-brand"
-                      >
-                        {phone}
-                      </a>
-                    </p>
-                  ))}
-                </InfoItem>
-
-                <InfoItem icon={<FaEnvelope />} title="Email">
-                  <p>
-                    {/* The legacy markup was missing the mailto: scheme here,
-                        which made this link resolve as a relative path. */}
                     <a
-                      href={`mailto:${contactInfo.email}`}
-                      className="hover:text-brand"
+                      key={phone}
+                      href={`tel:${phone.replace(/\s/g, "")}`}
+                      className="block text-slate-700 transition-colors hover:text-brand-strong"
                     >
-                      {contactInfo.email}
+                      {phone}
                     </a>
-                  </p>
-                </InfoItem>
-
-                <InfoItem icon={<FaClock />} title="Working Hours">
-                  {contactInfo.hoursLong.map((line) => (
-                    <p key={line}>{line}</p>
                   ))}
-                </InfoItem>
-              </div>
+                </Row>
 
-              <div>
-                <h4 className="mb-4 text-base">Contact Us</h4>
-                <div className="flex gap-3">
-                  {socialLinks.map(({ href, label, icon: Icon }) => (
+                <Row label="WhatsApp">
+                  <a
+                    href={contactInfo.whatsapp}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-slate-700 underline decoration-slate-300 underline-offset-4 transition-colors hover:text-brand-strong"
+                  >
+                    Send a message
+                  </a>
+                </Row>
+
+                <Row label="Office">
+                  <span className="whitespace-pre-line text-slate-700">
+                    {contactInfo.addressShort}
+                  </span>
+                </Row>
+
+                <Row label="Hours">
+                  {contactInfo.hoursLong.map((line) => (
+                    <span key={line} className="block text-slate-700">
+                      {line}
+                    </span>
+                  ))}
+                </Row>
+              </dl>
+
+              <ul className="mt-7 flex items-center gap-1">
+                {socialLinks.map(({ href, label, icon: Icon }) => (
+                  <li key={label}>
                     <a
-                      key={label}
                       href={href}
                       aria-label={label}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex size-10 items-center justify-center rounded-[10px] bg-ink-2 text-slate-400 transition-all duration-300 hover:-translate-y-[3px] hover:bg-gradient-brand hover:text-white"
+                      className="flex size-9 items-center justify-center rounded-md text-slate-500 transition-colors hover:bg-slate-100 hover:text-ink"
                     >
                       <Icon className="size-4" />
                     </a>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-            <Reveal animation="fade-left">
-              <ContactForm />
-            </Reveal>
+            <ContactForm />
           </div>
         </Container>
       </Section>
 
-      <section className="leading-[0]">
+      <section className="border-t border-slate-200">
         <iframe
           title="MantraSphere Innovations office location"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d227.0!2d86.4022092!3d26.7530571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eea372b09b1d4d%3A0xf68d8d47527c6963!2sMantraSphere%20Innovations%20Pvt.%20Ltd.!5e0!3m2!1sen!2snp!4v1710000000000!5m2!1sen!2snp"
           width="100%"
-          height={450}
-          style={{ border: 0, filter: "grayscale(30%)" }}
+          height={400}
+          style={{ border: 0 }}
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
+          className="block grayscale-[0.3]"
         />
       </section>
     </>
   );
 }
 
-function InfoItem({
-  icon,
-  title,
+function Row({
+  label,
   children,
 }: {
-  icon: React.ReactNode;
-  title: string;
+  label: string;
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex gap-4">
-      <div className="flex size-[50px] shrink-0 items-center justify-center rounded-[14px] bg-brand/10 text-[1.2rem] text-brand">
-        {icon}
-      </div>
-      <div className="text-[0.95rem] leading-[1.6] text-slate-500">
-        <h4 className="mb-1 text-base text-ink">{title}</h4>
-        {children}
-      </div>
+    <div className="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-4 py-4">
+      <dt className="text-sm text-slate-500">{label}</dt>
+      <dd className="text-body">{children}</dd>
     </div>
   );
 }

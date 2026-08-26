@@ -5,22 +5,20 @@ import {
   FaAws,
   FaBrain,
   FaChartLine,
-  FaClock,
   FaCloud,
   FaCss3Alt,
   FaDatabase,
   FaDocker,
-  FaDollarSign,
   FaFeather,
+  FaFileSignature,
   FaFire,
   FaGem,
   FaGoogle,
-  FaHeadset,
   FaHtml5,
   FaJava,
   FaJs,
   FaLaptopCode,
-  FaLightbulb,
+  FaLifeRing,
   FaMicrosoft,
   FaMobileScreenButton,
   FaNodeJs,
@@ -29,57 +27,55 @@ import {
   FaReact,
   FaRobot,
   FaServer,
-  FaShieldHalved,
   FaSwift,
-  FaUpRightAndDownLeftFromCenter,
+  FaUsers,
   FaVuejs,
 } from "react-icons/fa6";
 
-export type OverviewItem = { title: string; description: string; icon: IconType };
+export type OverviewItem = {
+  title: string;
+  description: string;
+  icon: IconType;
+};
 
+/**
+ * Four commitments about how a project runs, replacing six abstract virtues
+ * ("Innovation First", "Quality Assured"…) that every agency claims and none
+ * can be held to. Each of these is grounded in something the site already
+ * states elsewhere: agile sprints, OWASP review, post-launch support and
+ * remote collaboration tooling.
+ */
 export const overviewItems: OverviewItem[] = [
   {
-    title: "Innovation First",
+    title: "You talk to the developers",
     description:
-      "We stay ahead of technology trends to deliver forward-thinking solutions that keep your business competitive.",
-    icon: FaLightbulb,
+      "We are a team of nine, so the person writing your code is in the same thread you are. No account manager relaying questions in between.",
+    icon: FaUsers,
   },
   {
-    title: "Quality Assured",
+    title: "Scope and price agreed up front",
     description:
-      "Every project undergoes rigorous testing and quality checks to ensure flawless performance and reliability.",
-    icon: FaShieldHalved,
+      "Discovery ends with a written scope and an itemised proposal. Fixed price, hourly or a dedicated team — whichever suits the work, decided before it starts.",
+    icon: FaFileSignature,
   },
   {
-    title: "On-Time Delivery",
+    title: "Two-week sprints you can watch",
     description:
-      "We respect deadlines and deliver projects on schedule without compromising on quality or features.",
-    icon: FaClock,
+      "Every sprint closes with a demo on a staging environment you can open yourself, so progress is something you see rather than something you're told about.",
+    icon: FaChartLine,
   },
   {
-    title: "24/7 Support",
+    title: "Support past the launch date",
     description:
-      "Our dedicated support team is available around the clock to assist you with any issues or questions.",
-    icon: FaHeadset,
-  },
-  {
-    title: "Cost Effective",
-    description:
-      "Premium quality solutions at competitive prices, ensuring maximum return on your technology investment.",
-    icon: FaDollarSign,
-  },
-  {
-    title: "Scalable Solutions",
-    description:
-      "Our architectures are built to grow with your business, handling increased loads seamlessly.",
-    icon: FaUpRightAndDownLeftFromCenter,
+      "Bug fixes, security updates and performance work continue after handover. Keep us on a maintenance package or take it in-house — the documentation supports both.",
+    icon: FaLifeRing,
   },
 ];
 
 export type TechCategory = {
   title: string;
   icon: IconType;
-  items: { label: string; icon: IconType }[];
+  items: { label: string; icon?: IconType }[];
 };
 
 export const techCategories: TechCategory[] = [
@@ -90,9 +86,9 @@ export const techCategories: TechCategory[] = [
       { label: "React", icon: FaReact },
       { label: "Angular", icon: FaAngular },
       { label: "Vue.js", icon: FaVuejs },
+      { label: "TypeScript", icon: FaJs },
       { label: "HTML5", icon: FaHtml5 },
       { label: "CSS3", icon: FaCss3Alt },
-      { label: "JavaScript", icon: FaJs },
     ],
   },
   {
@@ -131,20 +127,20 @@ export const techCategories: TechCategory[] = [
     title: "Databases",
     icon: FaDatabase,
     items: [
-      { label: "MongoDB", icon: FaDatabase },
       { label: "PostgreSQL", icon: FaDatabase },
       { label: "MySQL", icon: FaDatabase },
+      { label: "MongoDB", icon: FaDatabase },
       { label: "Firebase", icon: FaFire },
     ],
   },
   {
-    title: "AI/ML",
+    title: "AI / ML",
     icon: FaBrain,
     items: [
       { label: "TensorFlow", icon: FaRobot },
       { label: "PyTorch", icon: FaFire },
       { label: "OpenAI", icon: FaBrain },
-      { label: "Scikit-learn", icon: FaChartLine },
+      { label: "scikit-learn", icon: FaChartLine },
     ],
   },
 ];
@@ -152,64 +148,64 @@ export const techCategories: TechCategory[] = [
 export const processSteps = [
   {
     number: "01",
-    title: "Discovery & Planning",
+    title: "Discovery",
     description:
-      "We analyze your requirements, research your market, and create a comprehensive project roadmap with clear milestones.",
+      "We work through the requirements, the systems it has to integrate with, and what can wait for a second release. You leave with a written scope and a proposal.",
   },
   {
     number: "02",
-    title: "Design & Prototype",
+    title: "Design",
     description:
-      "Our designers create wireframes and interactive prototypes, ensuring the perfect user experience before development begins.",
+      "Wireframes, then a clickable prototype. Changes cost almost nothing here and a great deal later, so the interface is settled before production code is written.",
   },
   {
     number: "03",
-    title: "Development & Testing",
+    title: "Build",
     description:
-      "Our expert developers build your solution using agile methodologies, with continuous testing to ensure quality.",
+      "Two-week sprints with continuous testing against a staging environment you can open at any time. Each sprint closes with a working demo.",
   },
   {
     number: "04",
-    title: "Launch & Support",
+    title: "Handover",
     description:
-      "We deploy your solution and provide ongoing maintenance, updates, and 24/7 support to ensure smooth operation.",
+      "We deploy to your infrastructure and hand over setup notes, architecture documentation and a walkthrough, then stay on for support.",
   },
 ];
 
 export const faqs = [
   {
-    question: "What services does MantraSphere Innovations offer?",
+    question: "How long does a project take?",
     answer:
-      "We offer a comprehensive range of digital services including Web Development, Mobile App Development, AI & Machine Learning solutions, UI/UX Design, Digital Marketing, and 3D/4D Development. Each service is tailored to meet your specific business needs.",
+      "A straightforward website is two to four weeks. Web applications and mobile apps run two to six months depending on scope. You get a sprint-by-sprint schedule at the end of discovery, and progress stays visible on staging rather than appearing only at the end.",
   },
   {
-    question: "How long does it take to complete a project?",
+    question: "How does pricing work?",
     answer:
-      "Project timelines vary based on complexity and scope. A simple website can be completed in 2-4 weeks, while complex web applications or mobile apps may take 2-6 months. We provide detailed timelines during the planning phase and keep you updated throughout.",
+      "Three arrangements, depending on the work: a fixed price for a defined scope, an hourly rate where the scope is open-ended, or a dedicated team retained monthly. You get an itemised proposal after discovery with no line items added later.",
   },
   {
-    question: "Do you provide post-launch support and maintenance?",
+    question: "What happens after launch?",
     answer:
-      "Yes! We provide comprehensive post-launch support including bug fixes, security updates, performance optimization, and feature enhancements. We offer flexible maintenance packages tailored to your needs with 24/7 support availability.",
+      "Every project includes post-launch support covering bug fixes, security updates, performance work and feature additions. From there you can keep a maintenance package or move the project in-house — the handover documentation is written so the second option is genuinely open to you.",
   },
   {
-    question: "What technologies do you use for development?",
+    question: "Do you work with clients outside Nepal?",
     answer:
-      "We work with a wide range of modern technologies including React, Angular, Vue.js, Node.js, Python, Flutter, React Native, TensorFlow, AWS, Google Cloud, and many more. We select the best technology stack based on your project requirements.",
+      "Yes. We are on Nepal Time (UTC+5:45), which overlaps the working day across South Asia, the Gulf and most of Europe. For clients further west we keep calls in our early morning and run the rest asynchronously over Slack, Jira and email.",
   },
   {
-    question: "How do you handle project pricing?",
+    question: "Which technologies do you use?",
     answer:
-      "We offer flexible pricing models including fixed-price projects, hourly rates, and dedicated team arrangements. After understanding your requirements, we provide a detailed proposal with transparent pricing. We ensure no hidden costs and great value for your investment.",
+      "React, Angular and Vue on the front end; Node.js, Python, PHP and Java behind it; Flutter and React Native for mobile; AWS, Google Cloud and Azure for infrastructure. We choose per project rather than fitting every problem to one stack.",
   },
   {
-    question: "Can you work with clients remotely?",
+    question: "Can you take over a project someone else started?",
     answer:
-      "Absolutely! We have extensive experience working with clients globally. We use modern collaboration tools like Slack, Zoom, Jira, and Trello to ensure seamless communication and project management regardless of your location.",
+      "Often, yes. We begin with an audit of the existing codebase and give you a straight answer on whether it is worth continuing or cheaper to rebuild. Sometimes the answer is that you should stay where you are, and we will say so.",
   },
   {
-    question: "Do you sign NDAs and ensure data security?",
+    question: "Will you sign an NDA?",
     answer:
-      "Yes, we take data security very seriously. We are happy to sign NDAs before project discussions begin. We follow industry-standard security practices, use encrypted communications, and ensure all client data is protected and confidential.",
+      "Yes, before any detailed discussion of your project. Send us yours or use ours.",
   },
 ];
