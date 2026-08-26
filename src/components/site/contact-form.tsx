@@ -1,12 +1,8 @@
 "use client";
 
 import { useActionState } from "react";
-import { FaCircleCheck, FaPaperPlane, FaSpinner } from "react-icons/fa6";
 
-import {
-  initialContactState,
-  submitContact,
-} from "@/app/contact/actions";
+import { initialContactState, submitContact } from "@/app/contact/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,17 +17,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
 const serviceOptions = [
-  { value: "web", label: "Web Development" },
-  { value: "mobile", label: "Mobile App Development" },
-  { value: "ai", label: "AI & Machine Learning" },
-  { value: "uiux", label: "UI/UX Design" },
-  { value: "marketing", label: "Digital Marketing" },
-  { value: "3d", label: "3D/4D Development" },
-  { value: "other", label: "Other" },
+  { value: "web", label: "Web development" },
+  { value: "mobile", label: "Mobile app" },
+  { value: "ai", label: "AI & machine learning" },
+  { value: "uiux", label: "Product design" },
+  { value: "marketing", label: "Digital marketing" },
+  { value: "3d", label: "3D & immersive" },
+  { value: "other", label: "Something else" },
 ];
 
 const fieldClass =
-  "w-full rounded-xl border-2 border-slate-200 bg-white px-[18px] py-3.5 text-[0.95rem] text-ink transition-all focus-visible:border-brand focus-visible:ring-[3px] focus-visible:ring-brand/10";
+  "h-11 w-full rounded-[10px] border border-line bg-surface px-3.5 text-[0.9375rem] text-fg transition-colors placeholder:text-fg-subtle focus-visible:border-brand focus-visible:ring-[3px] focus-visible:ring-brand/15 aria-invalid:border-destructive";
 
 export function ContactForm() {
   const [state, formAction, pending] = useActionState(
@@ -41,48 +37,42 @@ export function ContactForm() {
 
   if (state.status === "success") {
     return (
-      <div className="rounded-[20px] border border-slate-200 bg-white p-6 shadow-[0_20px_25px_-5px_rgb(0_0_0_/_0.1),0_8px_10px_-6px_rgb(0_0_0_/_0.1)] md:p-10">
-        <div className="px-10 py-15 text-center">
-          <FaCircleCheck className="mx-auto mb-5 text-[4rem] text-emerald-500" />
-          <h3 className="mb-2.5 text-[1.5rem] text-ink">
-            Message Sent Successfully!
-          </h3>
-          <p className="text-slate-500">
-            Thank you for reaching out. We&apos;ll get back to you within 24
-            hours.
-          </p>
-        </div>
+      <div className="rounded-xl border border-line bg-surface-alt p-8 md:p-10">
+        <h2 className="text-h3">Message sent</h2>
+        <p className="mt-3 max-w-prose text-[0.9375rem] leading-relaxed text-fg-muted">
+          Thanks — it&apos;s in our inbox. You&apos;ll hear back within one
+          working day (Sunday to Friday, Nepal Time). If it&apos;s urgent,
+          calling is faster than waiting on email.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-[20px] border border-slate-200 bg-white p-6 shadow-[0_20px_25px_-5px_rgb(0_0_0_/_0.1),0_8px_10px_-6px_rgb(0_0_0_/_0.1)] md:p-10">
-      <form action={formAction} noValidate>
-        <h3 className="mb-[30px] text-[1.5rem] text-ink">Send Us a Message</h3>
-
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+    <div className="rounded-xl border border-line bg-surface p-6 shadow-card md:p-8">
+      <form action={formAction} noValidate className="space-y-5">
+        <div className="grid gap-5 sm:grid-cols-2">
           <Field
             id="firstName"
-            label="First Name *"
+            label="First name"
             placeholder="John"
             error={state.errors?.firstName}
             required
           />
           <Field
             id="lastName"
-            label="Last Name *"
+            label="Last name"
             placeholder="Doe"
             error={state.errors?.lastName}
             required
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="grid gap-5 sm:grid-cols-2">
           <Field
             id="email"
             type="email"
-            label="Email *"
+            label="Email"
             placeholder="john@example.com"
             error={state.errors?.email}
             required
@@ -91,26 +81,24 @@ export function ContactForm() {
             id="phone"
             type="tel"
             label="Phone"
-            placeholder="+977 9XXXXXXXXX"
+            hint="Optional"
+            placeholder="+977 98XXXXXXXX"
             error={state.errors?.phone}
           />
         </div>
 
-        <div className="mb-5">
-          <Label
-            htmlFor="service"
-            className="mb-2 block text-[0.9rem] font-semibold text-ink-3"
-          >
-            Service Interested In
-          </Label>
+        <div>
+          <FieldLabel htmlFor="service" hint="Optional">
+            What do you need?
+          </FieldLabel>
           {/* Radix renders a hidden native select for `name`, so this still
-              posts correctly when the action runs without client JS. */}
+              posts correctly if the action runs before JS loads. */}
           <Select name="service">
             <SelectTrigger
               id="service"
-              className={cn(fieldClass, "h-auto justify-between")}
+              className={cn(fieldClass, "justify-between")}
             >
-              <SelectValue placeholder="Select a Service" />
+              <SelectValue placeholder="Select one" />
             </SelectTrigger>
             <SelectContent>
               {serviceOptions.map((option) => (
@@ -122,21 +110,16 @@ export function ContactForm() {
           </Select>
         </div>
 
-        <div className="mb-5">
-          <Label
-            htmlFor="message"
-            className="mb-2 block text-[0.9rem] font-semibold text-ink-3"
-          >
-            Your Message *
-          </Label>
+        <div>
+          <FieldLabel htmlFor="message">About the project</FieldLabel>
           <Textarea
             id="message"
             name="message"
-            rows={5}
+            rows={6}
             required
-            placeholder="Tell us about your project..."
+            placeholder="What are you building, who is it for, and is there a date you're working towards?"
             aria-invalid={Boolean(state.errors?.message)}
-            className={cn(fieldClass, "min-h-[120px] resize-y")}
+            className={cn(fieldClass, "h-auto min-h-36 resize-y py-3")}
           />
           <FieldError message={state.errors?.message} />
         </div>
@@ -144,31 +127,20 @@ export function ContactForm() {
         {state.status === "error" && !state.errors ? (
           <p
             role="alert"
-            className="mb-5 rounded-xl bg-destructive/10 px-4 py-3 text-[0.9rem] text-destructive"
+            className="rounded-[10px] border border-destructive/20 bg-destructive/5 px-3.5 py-3 text-sm text-destructive"
           >
             {state.message}
           </p>
         ) : null}
 
-        <Button
-          type="submit"
-          variant="brand"
-          size="pill-lg"
-          disabled={pending}
-          className="w-full justify-center"
-        >
-          {pending ? (
-            <>
-              <FaSpinner className="animate-spin" />
-              Sending...
-            </>
-          ) : (
-            <>
-              <FaPaperPlane />
-              Send Message
-            </>
-          )}
-        </Button>
+        <div className="flex flex-wrap items-center gap-4 pt-1">
+          <Button type="submit" variant="brand" size="lg-cta" disabled={pending}>
+            {pending ? "Sending…" : "Send message"}
+          </Button>
+          <p className="text-sm text-fg-subtle">
+            We reply within one working day.
+          </p>
+        </div>
       </form>
     </div>
   );
@@ -177,22 +149,21 @@ export function ContactForm() {
 function Field({
   id,
   label,
+  hint,
   error,
   type = "text",
   ...props
 }: React.ComponentProps<typeof Input> & {
   id: string;
   label: string;
+  hint?: string;
   error?: string;
 }) {
   return (
-    <div className="mb-5">
-      <Label
-        htmlFor={id}
-        className="mb-2 block text-[0.9rem] font-semibold text-ink-3"
-      >
+    <div>
+      <FieldLabel htmlFor={id} hint={hint}>
         {label}
-      </Label>
+      </FieldLabel>
       <Input
         id={id}
         name={id}
@@ -206,10 +177,29 @@ function Field({
   );
 }
 
+function FieldLabel({
+  htmlFor,
+  hint,
+  children,
+}: {
+  htmlFor: string;
+  hint?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="mb-2 flex items-baseline justify-between gap-3">
+      <Label htmlFor={htmlFor} className="text-sm font-medium text-fg">
+        {children}
+      </Label>
+      {hint ? <span className="text-xs text-fg-subtle">{hint}</span> : null}
+    </div>
+  );
+}
+
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
   return (
-    <p role="alert" className="mt-1.5 text-[0.85rem] text-destructive">
+    <p role="alert" className="mt-1.5 text-sm text-destructive">
       {message}
     </p>
   );

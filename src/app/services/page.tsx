@@ -1,97 +1,83 @@
 import type { Metadata } from "next";
-import { FaArrowRight, FaCheck } from "react-icons/fa6";
 
-import { CtaSection } from "@/components/site/cta-section";
-import {
-  Container,
-  PageHeader,
-  Section,
-  SectionHeader,
-} from "@/components/site/layout-primitives";
+import { ClosingCta } from "@/components/site/closing-cta";
+import { Container, PageHeader, Section } from "@/components/site/layout-primitives";
 import { Reveal } from "@/components/site/reveal";
 import { services } from "@/lib/data/services";
 
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "End-to-end digital services from MantraSphere Innovations: web and mobile development, AI and machine learning, UI/UX design, digital marketing, and 3D/4D development.",
+    "Web development, mobile apps, AI and machine learning, product design, digital marketing and browser-based 3D — what each involves and what we build with.",
 };
 
 export default function ServicesPage() {
   return (
     <>
-      <PageHeader title="Our" highlight="Services" crumb="Services" />
+      <PageHeader
+        crumb="Services"
+        title="Six services, and what each one actually involves"
+        intro="No packages or tiers. Tell us the problem and we will tell you which of these it needs, or that it needs none of them."
+      />
 
       <Section>
         <Container>
-          <SectionHeader
-            tag="What We Do"
-            title={
-              <>
-                Comprehensive Digital{" "}
-                <span className="text-gradient-brand">Solutions</span>
-              </>
-            }
-            description="We offer end-to-end digital services designed to transform your business and accelerate growth."
-          />
-
-          {services.map((service, index) => (
-            <Reveal
-              key={service.slug}
-              className="mb-[30px] flex flex-col gap-5 overflow-hidden rounded-[20px] border border-slate-200 bg-white p-[30px] shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.1),0_2px_4px_-2px_rgb(0_0_0_/_0.1)] transition-all duration-300 hover:border-brand/20 hover:shadow-brand md:flex-row md:gap-10 md:p-[50px]"
-            >
-              <div className="min-w-20 text-center">
-                <div className="mb-3 flex size-20 items-center justify-center rounded-[20px] bg-gradient-brand text-[2rem] text-white">
-                  <service.icon />
-                </div>
-                <span className="font-heading text-[1.5rem] font-extrabold text-slate-200">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </div>
-
-              <div>
-                <h3 className="mb-4 text-[1.6rem] text-ink">{service.title}</h3>
-                <p className="mb-6 leading-[1.8] text-slate-500">
-                  {service.description}
-                </p>
-
-                <div className="mb-6 grid grid-cols-1 gap-3 md:grid-cols-2">
-                  {service.features.map((feature) => (
-                    <div
-                      key={feature}
-                      className="flex items-center gap-2.5 text-[0.95rem] font-medium"
-                    >
-                      <FaCheck className="shrink-0 text-brand" />
-                      {feature}
+          <div className="divide-y divide-line border-b border-line">
+            {services.map((service, index) => (
+              <Reveal
+                key={service.slug}
+                id={service.slug}
+                className="scroll-mt-28 py-14 first:pt-0 md:py-20"
+              >
+                <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)] lg:gap-16">
+                  <div>
+                    <div className="flex items-baseline gap-4">
+                      <span className="font-display text-sm text-fg-subtle tabular-nums">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <h2 className="text-h2">{service.title}</h2>
                     </div>
-                  ))}
-                </div>
+                    <p className="mt-6 text-lead leading-relaxed text-fg-muted lg:max-w-none">
+                      {service.description}
+                    </p>
+                    <ul className="mt-8 flex flex-wrap gap-2">
+                      {service.tech.map((tech) => (
+                        <li
+                          key={tech}
+                          className="rounded-md border border-line bg-surface-alt px-2.5 py-1 text-[0.8125rem] text-fg-muted"
+                        >
+                          {tech}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                <div className="flex flex-wrap gap-2">
-                  {service.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-full bg-brand/8 px-4 py-1.5 text-[0.85rem] font-semibold text-brand"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                  <div className="lg:pt-2">
+                    <h3 className="text-eyebrow mb-5 uppercase text-fg-subtle">
+                      Typical work
+                    </h3>
+                    <ul className="grid gap-x-8 sm:grid-cols-2">
+                      {service.features.map((feature) => (
+                        <li
+                          key={feature}
+                          className="border-t border-line py-3 text-[0.9375rem] text-fg-muted"
+                        >
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            ))}
+          </div>
         </Container>
       </Section>
 
-      <CtaSection
-        title="Need a Custom Solution?"
-        description="Let's discuss how our services can help your business grow. Contact us for a free consultation."
-        primary={{
-          href: "/contact",
-          label: "Contact Us",
-          icon: <FaArrowRight />,
-        }}
-        secondary={{ href: "/products", label: "View Products" }}
+      <ClosingCta
+        title="Not sure which of these you need?"
+        description="Describe the problem rather than the solution and we will tell you what it takes to solve — including when the answer is that you don't need us."
+        secondary={{ href: "/products", label: "See our products" }}
       />
     </>
   );

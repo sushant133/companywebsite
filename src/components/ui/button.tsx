@@ -19,15 +19,15 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
-        // ---- MantraSphere pill buttons (legacy .btn-* classes) ----
-        brand:
-          "bg-gradient-brand text-white hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgb(99_102_241_/_0.4)]",
+        // ---- MantraSphere ----
+        // Flat fills, a restrained radius and no hover lift. The buttons
+        // should be the calmest thing on the page, not the loudest.
+        brand: "bg-brand text-white hover:bg-brand-hover",
         "outline-brand":
-          "border-2 border-brand bg-transparent text-brand hover:-translate-y-0.5 hover:bg-brand hover:text-white",
-        white:
-          "border-2 border-white bg-white text-brand hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgb(255_255_255_/_0.3)]",
+          "border-line bg-surface text-fg hover:border-brand/40 hover:bg-brand-soft hover:text-brand-hover",
+        white: "bg-white text-fg hover:bg-white/90",
         "outline-white":
-          "border-2 border-white/40 bg-transparent text-white hover:-translate-y-0.5 hover:bg-white hover:text-brand",
+          "border-white/25 bg-transparent text-white hover:border-white/50 hover:bg-white/10",
       },
       size: {
         default:
@@ -41,10 +41,9 @@ const buttonVariants = cva(
         "icon-sm":
           "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
         "icon-lg": "size-9",
-        // ---- MantraSphere pill sizes (legacy .btn / .btn-lg) ----
-        pill: "h-auto gap-2 rounded-full px-7 py-3 text-[0.95rem] font-semibold",
-        "pill-lg":
-          "h-auto gap-2 rounded-full px-9 py-4 text-[1.05rem] font-semibold",
+        // ---- MantraSphere ----
+        md: "h-11 gap-2 rounded-[10px] px-5 text-[0.9375rem] font-medium",
+        "lg-cta": "h-12 gap-2 rounded-[10px] px-6 text-base font-medium",
       },
     },
     defaultVariants: {

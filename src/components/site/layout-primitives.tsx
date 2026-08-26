@@ -1,10 +1,8 @@
 import Link from "next/link";
-import { FaChevronRight } from "react-icons/fa6";
 
-import { Reveal } from "@/components/site/reveal";
 import { cn } from "@/lib/utils";
 
-/** Legacy `.container`: 1200px max width, 20px gutters. */
+/** 1120px measure with generous gutters. */
 export function Container({
   className,
   children,
@@ -13,51 +11,80 @@ export function Container({
   children: React.ReactNode;
 }) {
   return (
-    <div className={cn("mx-auto w-full max-w-[1200px] px-5", className)}>
+    <div className={cn("mx-auto w-full max-w-[1120px] px-6", className)}>
       {children}
     </div>
   );
 }
 
-/** Legacy `.section`: 100px vertical padding, 70px below 768px. */
+/**
+ * Section rhythm. One scale, three steps — sections do not each invent
+ * their own padding.
+ */
 export function Section({
+  size = "default",
   className,
   children,
   ...props
-}: React.ComponentProps<"section">) {
+}: React.ComponentProps<"section"> & { size?: "default" | "tight" | "loose" }) {
   return (
-    <section className={cn("py-[70px] md:py-[100px]", className)} {...props}>
+    <section
+      className={cn(
+        size === "tight" && "py-14 md:py-20",
+        size === "default" && "py-20 md:py-28",
+        size === "loose" && "py-24 md:py-36",
+        className,
+      )}
+      {...props}
+    >
       {children}
     </section>
   );
 }
 
+/**
+ * Section heading. Left-aligned by default — centring every heading on the
+ * page is a large part of what makes a layout feel machine-assembled.
+ */
 export function SectionHeader({
-  tag,
+  eyebrow,
   title,
   description,
-  dark = false,
+  align = "start",
+  tone = "light",
+  className,
 }: {
-  tag: string;
+  eyebrow?: string;
   title: React.ReactNode;
   description?: string;
-  /** Inverts the copy colours for sections sitting on the dark background. */
-  dark?: boolean;
+  align?: "start" | "center";
+  tone?: "light" | "dark";
+  className?: string;
 }) {
   return (
-    <Reveal className="mx-auto mb-15 max-w-[700px] text-center">
-      <span
-        className={cn(
-          "mb-4 inline-block rounded-full px-5 py-1.5 text-[0.9rem] font-semibold text-brand",
-          dark ? "bg-brand/20" : "bg-brand/10",
-        )}
-      >
-        {tag}
-      </span>
+    <div
+      className={cn(
+        "mb-12 md:mb-16",
+        align === "center" && "mx-auto max-w-2xl text-center",
+        className,
+      )}
+    >
+      {eyebrow ? (
+        <p
+          className={cn(
+            "eyebrow mb-5",
+            align === "center" && "justify-center",
+            tone === "dark" && "text-brand-line",
+          )}
+        >
+          {eyebrow}
+        </p>
+      ) : null}
       <h2
         className={cn(
-          "mb-4 text-[2rem] md:text-[2.5rem]",
-          dark ? "text-white" : "text-ink",
+          "text-h2",
+          tone === "dark" && "text-white",
+          align === "start" && "max-w-3xl",
         )}
       >
         {title}
@@ -65,50 +92,49 @@ export function SectionHeader({
       {description ? (
         <p
           className={cn(
-            "text-[1.1rem] leading-[1.8]",
-            dark ? "text-slate-400" : "text-slate-500",
+            "mt-5 text-lead",
+            align === "start" && "measure",
+            tone === "dark" ? "text-ink-fg-muted" : "text-fg-muted",
           )}
         >
           {description}
         </p>
       ) : null}
-    </Reveal>
+    </div>
   );
 }
 
-/** Dark banner with breadcrumb used by the services/products/team/contact pages. */
+/**
+ * Interior page masthead. Deliberately short and quiet: it orients you and
+ * gets out of the way, rather than acting as a second hero.
+ */
 export function PageHeader({
   title,
-  highlight,
+  intro,
   crumb,
 }: {
   title: string;
-  highlight: string;
+  intro?: string;
   crumb: string;
 }) {
   return (
-    <section className="relative overflow-hidden bg-gradient-ink pt-[130px] pb-[60px] text-center md:pt-40 md:pb-20">
-      <div
-        aria-hidden
-        className="absolute -top-1/2 -left-[10%] size-[600px] rounded-full bg-[radial-gradient(circle,rgb(99_102_241_/_0.1)_0%,transparent_70%)]"
-      />
+    <header className="border-b border-line bg-surface-alt pt-32 pb-14 md:pt-40 md:pb-20">
       <Container>
-        <div className="relative z-[2]">
-          <h1 className="mb-4 text-[2.2rem] text-white md:text-5xl">
-            {title} <span className="text-gradient-brand">{highlight}</span>
-          </h1>
-          <nav
-            aria-label="Breadcrumb"
-            className="flex items-center justify-center gap-3 text-[0.95rem] text-slate-400"
-          >
-            <Link href="/" className="text-brand-light hover:text-white">
-              Home
-            </Link>
-            <FaChevronRight className="size-2.5" />
-            <span>{crumb}</span>
-          </nav>
-        </div>
+        <nav
+          aria-label="Breadcrumb"
+          className="mb-6 flex items-center gap-2 text-sm text-fg-subtle"
+        >
+          <Link href="/" className="hover:text-fg">
+            Home
+          </Link>
+          <span aria-hidden>/</span>
+          <span className="text-fg-muted">{crumb}</span>
+        </nav>
+        <h1 className="text-display max-w-3xl">{title}</h1>
+        {intro ? (
+          <p className="measure mt-6 text-lead text-fg-muted">{intro}</p>
+        ) : null}
       </Container>
-    </section>
+    </header>
   );
 }
