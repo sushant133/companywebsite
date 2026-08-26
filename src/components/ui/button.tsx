@@ -19,16 +19,15 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
-        // ---- MantraSphere ----
-        // Gradient is reserved for the primary action, so "primary" is
-        // legible at a glance. Everything else is flat, and nothing lifts.
+        // ---- MantraSphere pill buttons (legacy .btn-* classes) ----
         brand:
-          "bg-gradient-brand text-white shadow-[0_1px_2px_rgb(15_23_42_/_0.12)] hover:brightness-[1.08] active:brightness-95",
+          "bg-gradient-brand text-white hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgb(99_102_241_/_0.4)]",
         "outline-brand":
-          "border border-slate-300 bg-white text-slate-700 hover:border-brand/45 hover:bg-brand-soft hover:text-brand-dark",
-        white: "bg-white text-brand-dark hover:bg-slate-100",
+          "border-2 border-brand bg-transparent text-brand hover:-translate-y-0.5 hover:bg-brand hover:text-white",
+        white:
+          "border-2 border-white bg-white text-brand hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgb(255_255_255_/_0.3)]",
         "outline-white":
-          "border border-white/30 bg-transparent text-white hover:border-white/60 hover:bg-white/10",
+          "border-2 border-white/40 bg-transparent text-white hover:-translate-y-0.5 hover:bg-white hover:text-brand",
       },
       size: {
         default:
@@ -42,12 +41,10 @@ const buttonVariants = cva(
         "icon-sm":
           "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
         "icon-lg": "size-9",
-        // ---- MantraSphere ----
-        // Fixed heights so buttons align with each other and with inputs.
-        // The name is kept for call sites; the shape is no longer a pill,
-        // which was reading as decorative rather than considered.
-        pill: "h-10 gap-2 rounded-lg px-4 text-[0.875rem] font-semibold",
-        "pill-lg": "h-12 gap-2 rounded-lg px-6 text-[0.9375rem] font-semibold",
+        // ---- MantraSphere pill sizes (legacy .btn / .btn-lg) ----
+        pill: "h-auto gap-2 rounded-full px-7 py-3 text-[0.95rem] font-semibold",
+        "pill-lg":
+          "h-auto gap-2 rounded-full px-9 py-4 text-[1.05rem] font-semibold",
       },
     },
     defaultVariants: {

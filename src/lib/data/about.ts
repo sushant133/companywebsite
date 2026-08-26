@@ -31,27 +31,24 @@ export const aboutHighlights: {
   description: string;
   icon: IconType;
 }[] = [
-  // Checkable facts rather than claims. The previous set asserted ISO
-  // certification and clients in 10+ countries, neither of which the site
-  // evidences anywhere.
   {
-    title: "Nine people",
-    description: "Everyone on the team page works on client projects",
-    icon: FaUsersGear,
-  },
-  {
-    title: "Nine products",
-    description: "Built in-house, licensed and maintained by us",
+    title: "Innovation-Driven",
+    description: "Always exploring emerging technologies",
     icon: FaRocket,
   },
   {
-    title: "Six service lines",
-    description: "Web, mobile, AI, design, marketing and 3D",
+    title: "Client-Centric",
+    description: "Your success is our primary goal",
+    icon: FaUsersGear,
+  },
+  {
+    title: "Quality Assured",
+    description: "ISO certified development processes",
     icon: FaAward,
   },
   {
-    title: "UTC+5:45",
-    description: "Overlaps the working day across Asia, the Gulf and Europe",
+    title: "Global Presence",
+    description: "Serving clients in 10+ countries",
     icon: FaEarthAmericas,
   },
 ];
@@ -69,11 +66,11 @@ export const foundationCards: {
   {
     label: "01",
     title: "Our Mission",
-    body: "To build software that still works two years after we hand it over. That means documented handovers, established tooling for the parts that have to keep running, and being straight with clients about what a project actually requires.",
+    body: "To deliver innovative, high-quality software solutions that empower businesses to achieve their digital transformation goals. We strive to be the catalyst for positive change — bridging the gap between complex technology and practical business outcomes.",
     points: [
-      "Documented handovers on every project",
-      "Established tooling for anything long-lived",
-      "Honest scoping before a deposit is taken",
+      "Empower businesses globally",
+      "Deliver measurable impact",
+      "Drive digital transformation",
     ],
     icon: FaBullseye,
     iconGradient: "from-[#6366f1] to-[#8b5cf6]",
@@ -82,11 +79,11 @@ export const foundationCards: {
   {
     label: "02",
     title: "Our Vision",
-    body: "To be the studio that businesses in Nepal and the wider region turn to first — and to prove that serious engineering does not require a Bangalore or Singapore address to be taken seriously.",
+    body: "To become a globally recognized leader in software innovation, setting new benchmarks for quality, creativity, and technological excellence. We envision a future where every business has access to world-class digital tools.",
     points: [
-      "The studio the region turns to first",
-      "Serious engineering, built from Nepal",
-      "Products, not just billable hours",
+      "Global technology leader",
+      "Set industry benchmarks",
+      "Democratize technology access",
     ],
     icon: FaEye,
     iconGradient: "from-[#0ea5e9] to-[#06b6d4]",
@@ -95,11 +92,11 @@ export const foundationCards: {
   {
     label: "03",
     title: "Our Values",
-    body: "Say what the work will cost before starting it. Flag problems while they are still cheap to fix. Turn down projects that are a poor fit rather than delivering them badly. None of it is complicated; most of it is just uncomfortable.",
+    body: "Integrity, innovation, collaboration, and excellence drive everything we do. We believe in transparent communication, continuous learning, and building long-term partnerships built on trust and mutual growth.",
     points: [
-      "Price quoted before work begins",
-      "Problems flagged while still cheap",
-      "Poor-fit projects turned down",
+      "Integrity in every action",
+      "Continuous innovation",
+      "Collaborative partnerships",
     ],
     icon: FaHeart,
     iconGradient: "from-[#ec4899] to-[#f43f5e]",
@@ -116,42 +113,42 @@ export const coreValues: {
   {
     title: "Trust & Transparency",
     description:
-      "We quote before we start, flag overruns as they happen rather than at invoicing, and tell you when a feature is not worth what it will cost to build.",
+      "We believe in open, honest communication. Every decision is made with integrity, and every client relationship is built on a foundation of trust.",
     icon: FaHandshake,
     accent: "#6366f1",
   },
   {
     title: "Creative Innovation",
     description:
-      "We read the release notes and try the new tooling, then use the established option anyway for anything that has to stay up. Novelty is a cost your maintenance budget pays later.",
+      "We challenge conventions and embrace new ideas. Our team constantly explores emerging technologies to deliver groundbreaking solutions.",
     icon: FaLightbulb,
     accent: "#ec4899",
   },
   {
     title: "Excellence Always",
     description:
-      "Code review on everything, tests on the parts that matter, and a security pass before launch rather than after an incident report.",
+      "Mediocrity is not in our vocabulary. We pursue excellence in every line of code, every pixel designed, and every interaction with our clients.",
     icon: FaGem,
     accent: "#14b8a6",
   },
   {
     title: "Team Collaboration",
     description:
-      "Nine people means the designer, the backend developer and the person who will support the thing are all in the same conversation from week one.",
+      "Great things happen when talented people work together. We foster a collaborative culture where every voice matters and every idea counts.",
     icon: FaUsers,
     accent: "#f59e0b",
   },
   {
     title: "Passion Driven",
     description:
-      "We take on a limited number of projects at once. It caps our revenue and it is the only reason we can keep senior people on every engagement.",
+      "We're not just building software — we're pursuing our passion. This enthusiasm fuels our creativity and drives us to go above and beyond.",
     icon: FaHeart,
     accent: "#ef4444",
   },
   {
     title: "Continuous Growth",
     description:
-      "Every project ends with a written retrospective, and the things that went wrong get fixed in how we run the next one rather than repeated.",
+      "We invest in learning and development. Our team stays ahead of technology trends to deliver the most current and effective solutions.",
     icon: FaSeedling,
     accent: "#3b82f6",
   },

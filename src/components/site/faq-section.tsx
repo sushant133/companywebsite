@@ -9,52 +9,45 @@ import {
   Section,
   SectionHeader,
 } from "@/components/site/layout-primitives";
+import { Reveal } from "@/components/site/reveal";
 import { faqs } from "@/lib/data/home";
 
-/**
- * FAQ, laid out as heading beside answers rather than a centred stack of
- * bordered cards. The rows are separated by hairlines — an accordion already
- * reads as a list, so wrapping each row in its own card was redundant.
- */
 export function FaqSection() {
   return (
-    <Section id="faq" className="border-t border-slate-200">
+    <Section id="faq" className="bg-slate-100">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-          <SectionHeader
-            className="mb-0"
-            align="start"
-            label="Questions"
-            title={
-              <>
-                Answers to what clients{" "}
-                <span className="text-brand-strong">usually ask first</span>
-              </>
-            }
-            description="If something here is not covered, ask us directly — we would rather answer it before you commit."
-          />
-
-          <Accordion
-            type="single"
-            collapsible
-            className="border-t border-slate-200"
-          >
+        <SectionHeader
+          tag="FAQ"
+          title={
+            <>
+              Frequently Asked{" "}
+              <span className="text-gradient-brand">Questions</span>
+            </>
+          }
+          description="Find answers to common questions about our services and processes."
+        />
+        <Reveal delay={200} className="mx-auto max-w-[800px]">
+          {/* `collapsible` reproduces the legacy behaviour: opening one panel
+              closes the others, and clicking an open panel closes it. */}
+          <Accordion type="single" collapsible className="gap-4">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={faq.question}
                 value={`faq-${index}`}
-                className="border-b border-slate-200"
+                className="mb-4 overflow-hidden rounded-xl border border-transparent bg-white shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.1),0_2px_4px_-2px_rgb(0_0_0_/_0.1)] transition-all duration-300 data-[state=open]:border-brand/30"
               >
-                <AccordionTrigger className="rounded-none py-5 text-left text-[1rem] font-semibold text-ink hover:no-underline **:data-[slot=accordion-trigger-icon]:text-slate-400">
-                  {faq.question}
+                <AccordionTrigger className="rounded-none px-[30px] py-5 hover:bg-slate-100 hover:no-underline **:data-[slot=accordion-trigger-icon]:text-brand">
+                  <h3 className="pr-5 text-[1.05rem] font-semibold text-ink">
+                    {faq.question}
+                  </h3>
                 </AccordionTrigger>
-                <AccordionContent className="max-w-[62ch] pt-0 pb-5 text-body text-slate-600">
+                <AccordionContent className="px-[30px] pt-0 pb-5 text-[0.95rem] leading-[1.8] text-slate-500">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
-        </div>
+        </Reveal>
       </Container>
     </Section>
   );

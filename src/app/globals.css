@@ -4,30 +4,27 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ==================================================================
-   MantraSphere design system
-
-   Rules this file enforces:
-   - Gradient appears in three places only: the wordmark, the hero
-     headline accent, and primary buttons. Nowhere else.
-   - Two shadow levels. Cards either rest or lift; there is no glow.
-   - One type scale, one spacing scale. Sections do not invent their own.
-   ================================================================== */
+/* ------------------------------------------------------------------
+   MantraSphere design tokens
+   Ported from the legacy css/styles.css `:root` block. The slate ramp
+   in the original (#64748b, #94a3b8, #cbd5e1, #e2e8f0, #f1f5f9, #f8fafc)
+   is Tailwind's own `slate` scale, so those are used directly rather
+   than re-declared here.
+   ------------------------------------------------------------------ */
 @theme {
-  /* Legacy breakpoints were max-width 1024 / 768 / 480. The first two map
-     to Tailwind's md/lg; 480 needs a custom stop. */
+  /* The original stylesheet's breakpoints were max-width 1024 / 768 / 480.
+     768 and 1024 already map to Tailwind's md/lg; 480 needs a custom stop. */
   --breakpoint-xs: 30rem;
 
-  /* ---- Brand ---- */
   --color-brand: #6366f1;
-  --color-brand-strong: #4f46e5;
-  --color-brand-dark: #4338ca;
   --color-brand-light: #818cf8;
-  --color-brand-soft: #eef2ff;
   --color-brand-sky: #0ea5e9;
+  --color-brand-cyan: #06b6d4;
+  --color-brand-pink: #ec4899;
+  --color-brand-rose: #f43f5e;
+  --color-brand-violet: #8b5cf6;
   --color-gold: #bf9149;
 
-  /* ---- Dark surfaces ---- */
   --color-ink: #0f172a;
   --color-ink-2: #1e293b;
   --color-ink-3: #334155;
@@ -35,40 +32,18 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 
-  /* ---- Type scale ----
-     Fluid at the two display sizes, fixed below. Deliberately smaller than
-     before: 4rem headlines are a template signature, not a design decision. */
-  --text-hero: clamp(2.125rem, 1.35rem + 3.1vw, 3.375rem);
-  --text-hero--line-height: 1.12;
-  --text-hero--letter-spacing: -0.03em;
+  --shadow-brand:
+    0 20px 25px -5px rgb(99 102 241 / 0.35), 0 8px 10px -6px rgb(99 102 241 / 0.25);
 
-  --text-page-title: clamp(1.875rem, 1.35rem + 2.1vw, 2.75rem);
-  --text-page-title--line-height: 1.15;
-  --text-page-title--letter-spacing: -0.028em;
-
-  --text-section: clamp(1.625rem, 1.3rem + 1.35vw, 2.125rem);
-  --text-section--line-height: 1.2;
-  --text-section--letter-spacing: -0.024em;
-
-  --text-card-title: 1.125rem;
-  --text-card-title--line-height: 1.4;
-  --text-card-title--letter-spacing: -0.012em;
-
-  --text-lead: 1.0625rem;
-  --text-lead--line-height: 1.7;
-
-  --text-body: 0.9375rem;
-  --text-body--line-height: 1.7;
-
-  --text-label: 0.75rem;
-  --text-label--line-height: 1;
-  --text-label--letter-spacing: 0.08em;
-
-  /* Two levels, both neutral. Coloured shadows read as glow. */
-  --shadow-soft:
-    0 1px 2px rgb(15 23 42 / 0.04), 0 2px 8px rgb(15 23 42 / 0.05);
-  --shadow-raised:
-    0 2px 4px rgb(15 23 42 / 0.04), 0 8px 24px rgb(15 23 42 / 0.09);
+  --animate-float-particle: float-particle 6s ease-in-out infinite;
+  --animate-float-shape: float-shape 8s ease-in-out infinite;
+  --animate-float-badge: float-badge 4s ease-in-out infinite;
+  --animate-float-hex: float-hex 4s ease-in-out infinite;
+  --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+  --animate-scroll-down: scroll-down 1.5s ease-in-out infinite;
+  --animate-morph: morph 8s ease-in-out infinite;
+  --animate-spin-slow: spin 15s linear infinite;
 }
 
 @theme inline {
@@ -113,34 +88,36 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* shadcn/ui semantic tokens, retuned to the MantraSphere palette so the
+   library's components inherit the brand instead of neutral grey. */
 :root {
-  --radius: 0.625rem;
+  --radius: 0.75rem; /* legacy --radius: 12px */
   --background: #ffffff;
   --foreground: #0f172a;
   --card: #ffffff;
   --card-foreground: #0f172a;
   --popover: #ffffff;
   --popover-foreground: #0f172a;
-  --primary: #4f46e5;
+  --primary: #6366f1;
   --primary-foreground: #ffffff;
-  --secondary: #f8fafc;
+  --secondary: #f1f5f9;
   --secondary-foreground: #0f172a;
-  --muted: #f8fafc;
+  --muted: #f1f5f9;
   --muted-foreground: #64748b;
   --accent: #eef2ff;
   --accent-foreground: #4338ca;
-  --destructive: #dc2626;
+  --destructive: #e11d48;
   --border: #e2e8f0;
   --input: #e2e8f0;
   --ring: #6366f1;
   --chart-1: #6366f1;
   --chart-2: #0ea5e9;
-  --chart-3: #14b8a6;
-  --chart-4: #f59e0b;
-  --chart-5: #ec4899;
+  --chart-3: #06b6d4;
+  --chart-4: #ec4899;
+  --chart-5: #f59e0b;
   --sidebar: #f8fafc;
   --sidebar-foreground: #0f172a;
-  --sidebar-primary: #4f46e5;
+  --sidebar-primary: #6366f1;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #eef2ff;
   --sidebar-accent-foreground: #4338ca;
@@ -152,81 +129,187 @@
   * {
     @apply border-border outline-ring/50;
   }
-
   body {
-    @apply bg-background font-sans text-slate-600;
-    font-size: 1rem;
+    @apply bg-background text-foreground font-sans;
     line-height: 1.7;
   }
-
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply font-heading text-ink;
-    font-weight: 600;
-    line-height: 1.25;
-    /* Poppins sets wide by default; tightening it at larger sizes is most
-       of the difference between "template" and "art-directed". */
-    letter-spacing: -0.02em;
-    text-wrap: balance;
-  }
-
-  p {
-    text-wrap: pretty;
-  }
-
-  ::selection {
-    background: rgb(99 102 241 / 0.16);
-  }
-
-  /* Anchored sections must clear the fixed header. */
-  :target {
-    scroll-margin-top: 6rem;
+    @apply font-heading font-bold;
+    line-height: 1.3;
   }
 }
 
-/* The gradient, in full. Used by the wordmark, the hero headline accent and
-   primary buttons — and deliberately nowhere else. */
+/* ---- Brand gradient utilities ----
+   `--gradient` and `--gradient-3` from the legacy stylesheet. Declared as
+   utilities so they compose with variants (hover:, group-hover:, …). */
 @utility bg-gradient-brand {
-  background-image: linear-gradient(135deg, #4f46e5 0%, #6366f1 55%, #0ea5e9 100%);
+  background-image: linear-gradient(
+    135deg,
+    #6366f1 0%,
+    #0ea5e9 50%,
+    #06b6d4 100%
+  );
+}
+
+@utility bg-gradient-ink {
+  background-image: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 }
 
 @utility text-gradient-brand {
-  background-image: linear-gradient(120deg, #4f46e5 0%, #6366f1 45%, #0ea5e9 100%);
+  background-image: linear-gradient(
+    135deg,
+    #6366f1 0%,
+    #0ea5e9 50%,
+    #06b6d4 100%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
 }
 
-@layer components {
-  /* Faint graph paper for the hero only, masked so it fades rather than
-     stopping at a hard edge. */
-  .hero-grid {
-    background-image:
-      linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(255 255 255 / 0.04) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(
-      ellipse 80% 60% at 50% 40%,
-      #000 30%,
-      transparent 75%
-    );
+/* ------------------------------------------------------------------
+   Decorative keyframes.
+   These are the parts of the original design that are genuinely CSS
+   animation rather than layout, so they stay as CSS instead of being
+   re-expressed as utility soup.
+   ------------------------------------------------------------------ */
+@keyframes float-particle {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
   }
-
-  /* Small uppercase section label. */
-  .section-label {
-    @apply inline-flex items-center gap-2 text-label font-semibold uppercase;
-  }
-
-  /* Running text held to a readable measure. */
-  .measure {
-    max-width: 60ch;
+  50% {
+    transform: translateY(-100px) translateX(50px);
+    opacity: 1;
   }
 }
 
+@keyframes float-shape {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  25% {
+    transform: translateY(-30px) translateX(20px) scale(1.05);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-20px) scale(0.95);
+  }
+  75% {
+    transform: translateY(-40px) translateX(10px) scale(1.02);
+  }
+}
+
+@keyframes float-badge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes float-hex {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* The centre tile is scaled, so it needs its own keyframes to avoid the
+   transform being clobbered mid-animation. */
+@keyframes float-hex-center {
+  0%,
+  100% {
+    transform: scale(1.1) translateY(0);
+  }
+  50% {
+    transform: scale(1.1) translateY(-8px);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes scroll-down {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+}
+
+@keyframes morph {
+  0%,
+  100% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+  50% {
+    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+  }
+}
+
+@layer components {
+  /* Hero centre tile of the "What Makes Us Different" grid. */
+  .hex-center {
+    animation: float-hex-center 4s ease-in-out infinite;
+  }
+
+  /* 60px graph-paper overlay behind the About hero. */
+  .grid-overlay {
+    background-image:
+      linear-gradient(rgb(99 102 241 / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(99 102 241 / 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Dot pattern tucked behind the About image block. */
+  .dot-pattern {
+    background-image: radial-gradient(
+      circle,
+      rgb(99 102 241 / 0.25) 2px,
+      transparent 2px
+    );
+    background-size: 16px 16px;
+  }
+}
+
+/* Respect users who have asked for less motion. The original site had no
+   such handling; every decorative animation here is purely ornamental. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
