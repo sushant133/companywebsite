@@ -1,14 +1,9 @@
 import Link from "next/link";
-import {
-  FaArrowRight,
-  FaCirclePlay,
-  FaPhone,
-  FaRocket,
-} from "react-icons/fa6";
+import { FaArrowRight, FaPhone } from "react-icons/fa6";
 
 import { CtaSection } from "@/components/site/cta-section";
 import { FaqSection } from "@/components/site/faq-section";
-import { HeroParticles } from "@/components/site/hero-particles";
+import { Hero } from "@/components/site/hero";
 import {
   Container,
   Section,
@@ -16,7 +11,6 @@ import {
 } from "@/components/site/layout-primitives";
 import { Preloader } from "@/components/site/preloader";
 import { Reveal } from "@/components/site/reveal";
-import { TypingText } from "@/components/site/typing-text";
 import { Button } from "@/components/ui/button";
 import { overviewItems, processSteps, techCategories } from "@/lib/data/home";
 import { services } from "@/lib/data/services";
@@ -27,71 +21,7 @@ export default function HomePage() {
     <>
       <Preloader />
 
-      {/* ---- Hero ---- */}
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-gradient-ink pt-20">
-        <HeroParticles />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -top-1/2 -right-[20%] size-[800px] rounded-full bg-[radial-gradient(circle,rgb(99_102_241_/_0.15)_0%,transparent_70%)]"
-        />
-        <Container>
-          <div className="relative z-[2] mx-auto max-w-[900px] text-center">
-            <Reveal
-              animation="fade-down"
-              className="mb-[30px] inline-flex items-center gap-2.5 rounded-full border border-brand/30 bg-brand/15 px-5 py-2 text-[0.9rem] font-medium text-brand-light"
-            >
-              <FaRocket />
-              <span>Innovating the Future of Technology</span>
-            </Reveal>
-
-            <Reveal delay={100}>
-              <h1 className="mb-6 text-[1.8rem] leading-[1.15] font-extrabold text-white xs:text-[2.2rem] md:text-5xl lg:text-[4rem]">
-                Transforming Ideas Into{" "}
-                <TypingText className="text-gradient-brand" />
-              </h1>
-            </Reveal>
-
-            <Reveal delay={200}>
-              <p className="mx-auto mb-10 max-w-[700px] text-base leading-[1.8] text-slate-400 md:text-[1.2rem]">
-                MantraSphere Innovations delivers cutting-edge software
-                solutions that empower businesses to thrive in the digital era.
-                From AI-powered applications to immersive 3D experiences, we
-                turn your vision into extraordinary digital products.
-              </p>
-            </Reveal>
-
-            <Reveal
-              delay={300}
-              className="mb-[60px] flex flex-wrap justify-center gap-4"
-            >
-              <Button asChild variant="brand" size="pill-lg">
-                <Link href="/services">
-                  Explore Services
-                  <FaArrowRight />
-                </Link>
-              </Button>
-              <Button asChild variant="outline-brand" size="pill-lg">
-                <Link href="/about">
-                  <FaCirclePlay />
-                  Learn More
-                </Link>
-              </Button>
-            </Reveal>
-          </div>
-        </Container>
-
-        <div className="absolute bottom-[30px] left-1/2 z-[2] -translate-x-1/2 text-center">
-          <Link
-            href="#overview"
-            className="flex flex-col items-center gap-2 text-[0.8rem] text-white/50"
-          >
-            <span className="flex h-10 w-[26px] justify-center rounded-[13px] border-2 border-white/30 pt-2">
-              <span className="h-2 w-1 rounded-[2px] bg-brand-light animate-scroll-down" />
-            </span>
-            <span>Scroll Down</span>
-          </Link>
-        </div>
-      </section>
+      <Hero />
 
       {/* ---- Why Choose Us ---- */}
       <Section id="overview" className="bg-slate-100">

@@ -29,6 +29,18 @@
   --color-ink-2: #1e293b;
   --color-ink-3: #334155;
 
+  /* ---- Logo palette ----
+     Sampled directly from public/images/logo.png rather than estimated:
+     #0d56a7 is 15% of the mark, #f5a431 is 17%. The mark contains no cyan,
+     so the cyan below is the site's existing brand accent, kept to bridge
+     the hero to the indigo sections underneath it. */
+  --color-logo-blue: #0d56a7;
+  --color-logo-blue-light: #4a80bd;
+  --color-logo-amber: #f5a431;
+  --color-logo-amber-light: #f8bb65;
+  --color-hero-base: #07182e;
+  --color-hero-deep: #0a2447;
+
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 
@@ -178,6 +190,17 @@
    animation rather than layout, so they stay as CSS instead of being
    re-expressed as utility soup.
    ------------------------------------------------------------------ */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.995);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @keyframes float-particle {
   0%,
   100% {
@@ -283,7 +306,55 @@
   }
 }
 
+/* ------------------------------------------------------------------
+   Hero
+   Three layered light sources over a deep blue drawn from the logo: a
+   blue key light top-left, a cyan fill top-right, and one warm amber
+   glow low-right that ties back to the lower half of the mark. No
+   particles, no canvas, no JavaScript.
+   ------------------------------------------------------------------ */
 @layer components {
+  .hero-surface {
+    background-color: #07182e;
+    background-image:
+      radial-gradient(
+        48rem 34rem at 12% 6%,
+        rgb(13 86 167 / 0.55) 0%,
+        transparent 62%
+      ),
+      radial-gradient(
+        40rem 28rem at 88% 12%,
+        rgb(34 184 230 / 0.16) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        38rem 30rem at 76% 96%,
+        rgb(245 164 49 / 0.14) 0%,
+        transparent 62%
+      ),
+      linear-gradient(165deg, #07182e 0%, #0a2447 52%, #07182e 100%);
+  }
+
+  /* Faint blueprint grid, masked so it dissolves rather than ending at a
+     visible edge. */
+  .hero-mesh {
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(
+      ellipse 75% 62% at 30% 38%,
+      #000 25%,
+      transparent 76%
+    );
+  }
+
+  /* One entrance animation, reused with staggered delays. Runs on load so
+     above-the-fold content needs no observer and cannot flash. */
+  .hero-rise {
+    animation: hero-rise 0.75s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+
   /* Hero centre tile of the "What Makes Us Different" grid. */
   .hex-center {
     animation: float-hex-center 4s ease-in-out infinite;
