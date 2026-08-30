@@ -9,7 +9,7 @@ import type { ContentMap } from "@/lib/content/schema";
  */
 
 const site: ContentMap["site"] = {
-  name: "MantraSphere Innovations",
+  name: "MantraSphere Innovations Pvt. Ltd.",
   shortName: "Mantra[[Sphere]]",
   description:
     "MantraSphere Innovations is a software development company delivering cutting-edge digital solutions to businesses worldwide.",
