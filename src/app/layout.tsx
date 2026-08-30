@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 
-import { BackToTop } from "@/components/site/back-to-top";
-import { Footer } from "@/components/site/footer";
-import { Navbar } from "@/components/site/navbar";
 import { Toaster } from "@/components/ui/sonner";
-import { siteConfig } from "@/lib/site";
+import { getContent } from "@/lib/content/store";
+import { plainText } from "@/components/site/rich-text";
 import "./globals.css";
 
 const inter = Inter({
@@ -21,30 +19,30 @@ const poppins = Poppins({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-  title: {
-    default: `${siteConfig.name} | Software Solutions`,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  icons: { icon: "/images/logo.png" },
-  verification: { google: siteConfig.googleSiteVerification },
-  openGraph: {
-    siteName: siteConfig.name,
-    type: "website",
-    url: siteConfig.url,
-    title: `${siteConfig.name} | Software Solutions`,
-    description: siteConfig.description,
-  },
-};
+/** Read from the content store, so renaming the company in the dashboard
+ *  reaches the title, the OG tags and the verification meta as well. */
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getContent("site");
+  const name = plainText(site.name);
+  const title = `${name} | Software Solutions`;
 
-const websiteJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: siteConfig.name,
-  url: `${siteConfig.url}/`,
-};
+  return {
+    metadataBase: new URL(site.url),
+    title: { default: title, template: `%s | ${name}` },
+    description: site.description,
+    icons: { icon: site.logo || "/images/logo.png" },
+    verification: site.googleSiteVerification
+      ? { google: site.googleSiteVerification }
+      : undefined,
+    openGraph: {
+      siteName: name,
+      type: "website",
+      url: site.url,
+      title,
+      description: site.description,
+    },
+  };
+}
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -57,14 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${poppins.variable} scroll-smooth antialiased`}
     >
       <body className="flex min-h-screen flex-col overflow-x-hidden">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-        />
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <BackToTop />
+        {children}
         <Toaster />
       </body>
     </html>

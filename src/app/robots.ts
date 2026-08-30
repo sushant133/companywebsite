@@ -1,10 +1,13 @@
 import type { MetadataRoute } from "next";
 
-import { siteConfig } from "@/lib/site";
+import { getContent } from "@/lib/content/store";
 
-export default function robots(): MetadataRoute.Robots {
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const site = await getContent("site");
+
   return {
-    rules: { userAgent: "*", allow: "/" },
-    sitemap: `${siteConfig.url}/sitemap.xml`,
+    // The dashboard and the unsubscribe confirmation are not for crawlers.
+    rules: { userAgent: "*", allow: "/", disallow: ["/admin", "/unsubscribe"] },
+    sitemap: `${site.url}/sitemap.xml`,
   };
 }

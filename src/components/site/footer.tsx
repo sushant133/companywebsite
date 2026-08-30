@@ -2,10 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaClock, FaEnvelope, FaLocationDot, FaPhone } from "react-icons/fa6";
 
-import { contactInfo, footerLinks, siteConfig, socialLinks } from "@/lib/site";
-import { services } from "@/lib/data/services";
+import { Icon } from "@/components/site/icon";
+import { RichHeading, plainText } from "@/components/site/rich-text";
+import type { Service, SiteContent } from "@/lib/content/schema";
 
-export function Footer() {
+export function Footer({
+  site,
+  services,
+}: {
+  site: SiteContent;
+  services: Service[];
+}) {
   return (
     <footer className="bg-ink text-slate-400">
       <div className="pt-20 pb-10">
@@ -13,39 +20,42 @@ export function Footer() {
           <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
             <div>
               <Link href="/" className="mb-5 flex items-center gap-2.5">
-                <Image
-                  src="/images/logo.png"
-                  alt="MantraSphere Logo"
-                  width={38}
-                  height={38}
-                  className="size-[38px] object-contain"
+                {site.logo ? (
+                  <Image
+                    src={site.logo}
+                    alt={`${plainText(site.shortName)} logo`}
+                    width={38}
+                    height={38}
+                    className="size-[38px] object-contain"
+                  />
+                ) : null}
+                <RichHeading
+                  text={site.shortName}
+                  className="font-heading text-[1.3rem] font-extrabold text-gold"
                 />
-                <span className="font-heading text-[1.3rem] font-extrabold text-gold">
-                  Mantra<span className="text-gradient-brand">Sphere</span>
-                </span>
               </Link>
               <p className="mb-6 text-[0.95rem] leading-[1.8] text-slate-400">
-                {siteConfig.description}
+                {site.description}
               </p>
-              <div className="flex gap-3">
-                {socialLinks.map(({ href, label, icon: Icon }) => (
+              <div className="flex flex-wrap gap-3">
+                {site.socials.map((social) => (
                   <a
-                    key={label}
-                    href={href}
-                    aria-label={label}
+                    key={social.label}
+                    href={social.href}
+                    aria-label={social.label}
                     target="_blank"
                     rel="noreferrer"
                     className="flex size-10 items-center justify-center rounded-[10px] bg-ink-2 text-slate-400 transition-all duration-300 hover:-translate-y-[3px] hover:bg-gradient-brand hover:text-white"
                   >
-                    <Icon className="size-4" />
+                    <Icon name={social.icon} className="size-4" />
                   </a>
                 ))}
               </div>
             </div>
 
             <FooterColumn title="Quick Links">
-              {footerLinks.map((link) => (
-                <FooterLink key={link.href} href={link.href}>
+              {site.footerLinks.map((link) => (
+                <FooterLink key={`${link.href}-${link.label}`} href={link.href}>
                   {link.label}
                 </FooterLink>
               ))}
@@ -60,13 +70,15 @@ export function Footer() {
             </FooterColumn>
 
             <FooterColumn title="Contact Info">
-              <li className="flex items-start gap-3">
-                <FaLocationDot className="mt-1 size-3.5 shrink-0 text-brand-light" />
-                <span className="text-[0.95rem] whitespace-pre-line">
-                  {contactInfo.address}
-                </span>
-              </li>
-              {contactInfo.phones.map((phone) => (
+              {site.contact.address ? (
+                <li className="flex items-start gap-3">
+                  <FaLocationDot className="mt-1 size-3.5 shrink-0 text-brand-light" />
+                  <span className="text-[0.95rem] whitespace-pre-line">
+                    {site.contact.address}
+                  </span>
+                </li>
+              ) : null}
+              {site.contact.phones.map((phone) => (
                 <li key={phone} className="flex items-start gap-3">
                   <FaPhone className="mt-1 size-3.5 shrink-0 text-brand-light" />
                   <a
@@ -79,11 +91,16 @@ export function Footer() {
               ))}
               <li className="flex items-start gap-3">
                 <FaEnvelope className="mt-1 size-3.5 shrink-0 text-brand-light" />
-                <span className="text-[0.95rem]">{contactInfo.email}</span>
+                <a
+                  href={`mailto:${site.contact.email}`}
+                  className="text-[0.95rem] transition-colors hover:text-white"
+                >
+                  {site.contact.email}
+                </a>
               </li>
               <li className="flex items-start gap-3">
                 <FaClock className="mt-1 size-3.5 shrink-0 text-brand-light" />
-                <span className="text-[0.95rem]">{contactInfo.hours}</span>
+                <span className="text-[0.95rem]">{site.contact.hours}</span>
               </li>
             </FooterColumn>
           </div>
@@ -94,7 +111,7 @@ export function Footer() {
         <div className="mx-auto w-full max-w-[1200px] px-5">
           <div className="flex flex-wrap items-center justify-center gap-4 text-center md:justify-between md:text-left">
             <p className="text-[0.9rem] text-slate-500">
-              &copy; {new Date().getFullYear()} {siteConfig.name}. All Rights
+              &copy; {new Date().getFullYear()} {site.name}. All Rights
               Reserved.
             </p>
           </div>

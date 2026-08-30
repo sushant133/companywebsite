@@ -41,7 +41,6 @@
   --animate-float-hex: float-hex 4s ease-in-out infinite;
   --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
   --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
-  --animate-scroll-down: scroll-down 1.5s ease-in-out infinite;
   --animate-morph: morph 8s ease-in-out infinite;
   --animate-spin-slow: spin 15s linear infinite;
 }
@@ -259,17 +258,6 @@
   50% {
     opacity: 0.5;
     transform: scale(1.5);
-  }
-}
-
-@keyframes scroll-down {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(12px);
-    opacity: 0;
   }
 }
 
