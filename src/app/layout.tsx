@@ -30,7 +30,10 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(site.url),
     title: { default: title, template: `%s | ${name}` },
     description: site.description,
-    icons: { icon: site.logo || "/images/logo.png" },
+    // No `icons` here on purpose: `src/app/icon.png` is the file convention,
+    // and Next emits the right rel/type/sizes for it. Declaring icons in
+    // metadata as well overrides that with the raw, non-square logo, which is
+    // what browsers were squashing into the tab.
     verification: site.googleSiteVerification
       ? { google: site.googleSiteVerification }
       : undefined,

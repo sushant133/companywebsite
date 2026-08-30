@@ -38,12 +38,12 @@ const site: ContentMap["site"] = {
   contact: {
     address: "Dhangadhimai-10, Siraha,\nMadhesh Pradesh, Nepal 560001",
     addressShort: "Dhangadhimai-10, Siraha,\nMadhesh Pradesh, Nepal",
-    phones: ["+977 9824763981", "+977 9842582526"],
+    phones: ["+977 9717076049", "+977 9842582526"],
     email: "info@mantrasphere.com.np",
     hours: "Sun - Fri: 9:00 AM - 7:00 PM",
     hoursLong: ["Sunday - Friday: 9:00 AM - 7:00 PM", "Saturday: Closed"],
     whatsapp:
-      "https://wa.me/9779824763981?text=Hi%20how%20can%20I%20help%20you%3F",
+      "https://wa.me/9779717076049?text=Hi%20how%20can%20I%20help%20you%3F",
     mapEmbedUrl:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d227.0!2d86.4022092!3d26.7530571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eea372b09b1d4d%3A0xf68d8d47527c6963!2sMantraSphere%20Innovations%20Pvt.%20Ltd.!5e0!3m2!1sen!2snp!4v1710000000000!5m2!1sen!2snp",
   },
@@ -65,7 +65,7 @@ const site: ContentMap["site"] = {
     },
     {
       label: "WhatsApp",
-      href: "https://wa.me/9779824763981?text=Hi%20how%20can%20I%20help%20you%3F",
+      href: "https://wa.me/9779717076049?text=Hi%20how%20can%20I%20help%20you%3F",
       icon: "FaWhatsapp",
     },
     {
